@@ -25,11 +25,11 @@
 
 | **Location**             | **What Awaits Your Demise**                                                     |
 | ------------------------ | ------------------------------------------------------------------------------- |
-| 🕸️ **The Void**         | Enter the homepage. Decide whether you possess the courage to continue.         |
+| 🕸️ **The Void**         | Enter the homepage. Decide whether you possess the courage to continue.          |
 | 📜 **Grim Chronicles**   | Explore our curated collection of dark tales, literary poison, and curiosities. |
-| 🗝️ **The Vault**        | Uncover our restricted archives of mysterious artifacts and cursed records.     |
+| 🗝️ **The Vault**        | Uncover our restricted archives of mysterious artifacts and cursed records.      |
 | 🩸 **Branching Stories** | Make choices. Suffer the consequences. Walk branching paths to your doom.       |
-| 🕯️ **The Reading Room** | Return to your bookmarked progress... if your memory hasn't failed you.         |
+| 🕯️ **The Reading Room** | Return to your bookmarked progress... if your memory hasn't failed you.          |
 | ✉️ **The Confessional**  | Send a message into the abyss. Thing might read it. I probably won't.           |
 | ☠️ **The Grimoire**      | The restricted admin interface. Unauthorized entry will be met with execution.  |
 
