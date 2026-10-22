@@ -1,28 +1,31 @@
 # Deployment Guide — Wednesday's Dark Chronicles
 
-**Status:** preparation only. Nothing in this document has been executed, and
-the application has **not** been deployed. Every step that changes a live
-system is marked and needs its own approval.
+**Status:** deployment configuration is prepared; no hosted service has been
+created, no Neon database has been provisioned, and no data has been copied.
+The owner approved migrating existing data while excluding the known test
+administrator accounts. Provisioning, credential entry and the final deploy
+still require access to the owner's Neon and Render accounts.
 
-This guide is provider-neutral. It describes what a deployment needs, not
-how a particular vendor's console is clicked. The few provider-specific
-details that cannot be avoided (a managed PostgreSQL connection string, a
-TLS terminator) are called out where they appear.
+The repository includes a Render Blueprint at [`../render.yaml`](../render.yaml).
+It deploys the site and API together as one web service and expects an existing
+Neon PostgreSQL connection string and production secrets.
 
 ---
 
 ## 1. What has to be deployed
 
-There are two separate things, and they can live on one host or two.
+The site and API are served together by the Render web service. Its site
+routes expose only the public pages and assets; backend files and reports are
+not served.
 
 | Piece | What it is | How it is served |
 |---|---|---|
-| **The site** | Static HTML/CSS/JS: the public pages, the reader features and the Grimoire dashboard | A static file host or CDN |
-| **The API** | The Node.js/Express backend, which owns the database | A Node.js process behind a reverse proxy, or a container platform |
+| **The site** | Static HTML/CSS/JS: the public pages, the reader features and the Grimoire dashboard | Render web service |
+| **The API** | The Node.js/Express backend, which owns the database | Render web service |
 
 **The simplest correct deployment serves both from one host**, because the
-authentication cookie and the CSRF cookie are `SameSite=Strict` and the CORS
-allow-list must name the site explicitly. Splitting them across two origins
+authentication cookie and the CSRF cookie are `SameSite=Strict`. Splitting
+them across two origins
 works but requires the configuration described in §5.
 
 ### The static site
@@ -41,9 +44,12 @@ Two things to preserve when serving it:
 * **`/reader-config.js` must be served with a JavaScript content type**, and
   must not be cached for longer than the site's other assets.
 
-The site must **not** be served from a directory that also exposes the
-backend's `.env` file. The backend directory and the site directory must be
-separate.
+The site must **not** expose the backend's `.env` file.
+
+The backend serves the root page, named root assets, and the site's public
+directories from the repository root. It deliberately does not serve the
+`backend`, `reports`, or repository metadata directories. The default page is
+`/home_the_void/code.html`.
 
 ### The API
 
@@ -55,7 +61,8 @@ npm ci --omit=dev
 npm start          # node src/index.js
 ```
 
-It listens on `PORT` (default 3000) and serves `/api/*` and `/api/health`.
+It listens on `PORT` (default 3000), serves `/api/*` and `/api/health`, and
+serves the explicitly allowed public site files from the repository root.
 
 **It is not intended to be exposed directly to the internet.** Put it behind
 a reverse proxy that terminates TLS and forwards to the process, or run it
@@ -79,9 +86,30 @@ into the deployed directory.
 | `JWT_ISSUER` | no | Expected token issuer | Defaults to `wdc-api` |
 | `JWT_AUDIENCE` | no | Expected token audience | Defaults to `wdc-admin` |
 | `JWT_EXPIRES_IN` | no | Session lifetime | Defaults to `2h` |
-| `FRONTEND_ORIGIN` | yes | Allowed CORS origins | Comma-separated exact origins. See §5 |
+| `FRONTEND_ORIGIN` | only for cross-origin clients | Allowed CORS origins | Comma-separated exact origins. See §5 |
 | `TRUST_PROXY_HOPS` | yes, in practice | Number of trusted reverse proxies | `0` when the API is exposed directly, `1` behind one proxy. See §5.1 |
 | `DB_USER` / `DB_PASSWORD` / `DB_NAME` / `DB_PORT` | no | Compose interpolation | Only used by `docker-compose.yml` |
+
+For the same-origin Render deployment, leave `FRONTEND_ORIGIN` unset: the
+browser calls `/api` on the page's own origin, and CORS is not needed for
+same-origin requests. The Blueprint sets `TRUST_PROXY_HOPS=1` for Render's
+reverse proxy.
+
+### Render environment
+
+Set these secret environment variables in Render before the first deployment:
+
+* `DATABASE_URL` — the Neon connection string, including `sslmode=require`.
+  Use the direct (non-pooler) Neon URL for Prisma migrations.
+* `JWT_SECRET` and `CSRF_SECRET` — distinct random values generated with the
+  command above.
+
+The Blueprint sets `NODE_ENV=production` and `TRUST_PROXY_HOPS=1`. Its build
+command installs dependencies, generates Prisma Client, and applies pending
+migrations. The `/api/health` check also verifies database connectivity.
+The Blueprint selects Render's free web-service plan; free instances may
+sleep when idle and have a cold start on the next request. Upgrading the
+service can incur charges.
 
 > `SESSION_SECRET` was in earlier revisions of this guide but is **not used
 > anywhere in the code**: the CSRF session identifier is a random cookie
@@ -125,9 +153,8 @@ at the **native Windows PostgreSQL service**, which holds the project's real
 content. The Docker container's database is empty. See §8 and the Phase 10
 report for the full picture.
 
-**The production database target has not been chosen.** That decision
-remains open and is the user's to make. What follows is what a deployment
-against a managed PostgreSQL instance requires.
+**The production database target is Neon**, as requested. Provision a Neon
+database before deploying the Render service.
 
 ### Connecting to a managed instance
 
@@ -491,10 +518,9 @@ The administrator table currently holds **three** accounts:
 administrator account whose password is published in the source tree is a
 live credential, whatever the intention behind it.
 
-**This was not done during Phase 10**, because removing an administrator
-account is a change to existing data and to the live database, and it
-requires the owner's explicit approval. The Phase 10 report records the
-same finding and the same recommendation.
+The owner approved excluding both test accounts from the Neon migration.
+This does not modify the local database; verify both names are absent from
+Neon before enabling the Render service.
 
 The automated suite creates its own accounts in the **test** database and
 deletes them afterwards, so nothing depends on these two existing. To
@@ -510,7 +536,7 @@ application has no password-change or account-removal interface.
 
 ---
 
-## 8. The database target decision (still open)
+## 8. Neon migration and first deployment
 
 The development environment has **two** PostgreSQL servers on port 5432:
 
@@ -525,15 +551,50 @@ development `.env` uses. The Docker container is provisioned for machines
 where it is the only PostgreSQL instance (CI, a fresh checkout) and is left
 running and untouched.
 
-**No data has been copied to Docker or anywhere else, and the Phase 10 audit
-did not change any database target.** Choosing the production database
-remains an open decision. The options are:
+The owner approved migrating the existing database contents to Neon, excluding
+the `testadmin` and `admin_test` rows. Do not copy the local `.env` file or
+commit a database dump.
 
-| Option | Consequence |
-|---|---|
-| Deploy against the existing native instance | The content comes with it. The instance must be reachable from the deployment platform and secured accordingly. |
-| Deploy against a managed PostgreSQL instance | A fresh database. The content must be migrated, which needs its own plan and approval. |
-| Deploy the Docker container as the database | The container's database is empty, so the same migration applies as above. |
+Use this order so the application is not opened to visitors before its content
+is restored:
+
+1. Create a Neon PostgreSQL database and copy its **direct** connection string.
+2. Apply the checked-in schema migrations to the empty Neon database with
+   `DATABASE_URL` set to that Neon connection string:
+
+   ```
+   cd backend
+   npx prisma migrate deploy
+   ```
+
+3. Export the local database's data only (not its schema or Prisma migration
+   history), restore it into Neon, and verify the row counts. Use PostgreSQL's
+`pg_dump --format=custom --data-only --no-owner --no-acl
+--exclude-table=public._prisma_migrations` and `pg_restore` with the Neon
+connection string. Take care not to print either connection string in logs.
+4. Before creating the public Render service, remove the two known test admin
+   accounts from Neon and verify they are absent:
+
+   ```sql
+   DELETE FROM "User" WHERE username IN ('testadmin', 'admin_test');
+   ```
+
+   The published test password for `testadmin` is not safe for a public
+   deployment.
+5. Create a Render Blueprint deployment from `render.yaml`. Enter the Neon
+   connection string as `DATABASE_URL`, and set distinct, random values for
+   `JWT_SECRET` and `CSRF_SECRET`. Do not paste secrets into Git or this
+   document.
+6. Confirm Render reports a healthy `/api/health` check, then open the
+   `onrender.com` URL and verify the homepage, content, login and admin
+   dashboard.
+7. If the original administrator credentials are not known or have not been
+   rotated, run `backend/scripts/create-admin.js` against Neon with a new
+   unique password before enabling public access.
+
+The Render build applies migrations with `prisma migrate deploy`; it does not
+reset or seed the database. Re-deploying applies only migrations that are
+still pending.
 
 ---
 

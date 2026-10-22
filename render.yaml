@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: wednesdays-dark-chronicles
+    runtime: node
+    plan: free
+    buildCommand: cd backend && npm ci && npx prisma generate && npx prisma migrate deploy
+    startCommand: cd backend && npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY_HOPS
+        value: "1"
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CSRF_SECRET
+        sync: false

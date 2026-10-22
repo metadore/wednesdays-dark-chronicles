@@ -4,6 +4,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
 import { errorHandler } from './middleware/error.js';
 import postRoutes from './routes/posts.routes.js';
@@ -26,6 +28,7 @@ loadTestEnv();
 dotenv.config({ path: isTestEnv() ? envTestPath : undefined });
 
 const app = express();
+const siteRoot = path.resolve(fileURLToPath(new URL('../../', import.meta.url)));
 
 app.use(helmet());
 
@@ -222,6 +225,43 @@ app.get('/api/health', async (req, res) => {
     },
   });
 });
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(siteRoot, 'home_the_void', 'code.html'));
+});
+
+for (const directory of [
+  'bookmarks',
+  'branching_stories',
+  'grim_chronicles',
+  'home_the_void',
+  'inquiries',
+  'obsidian_ink',
+  'public',
+  'the_vault',
+  'the_vault_artifact_modal_view',
+]) {
+  app.use(
+    `/${directory}`,
+    express.static(path.join(siteRoot, directory), {
+      dotfiles: 'deny',
+      index: false,
+    })
+  );
+}
+
+for (const filename of [
+  'favicon.svg',
+  'post.html',
+  'reader-config.js',
+  'reader-data.js',
+  'reader-ui.js',
+  'reader.css',
+]) {
+  app.get(`/${filename}`, (req, res) => {
+    res.sendFile(path.join(siteRoot, filename));
+  });
+}
 
 app.use(errorHandler);
 
