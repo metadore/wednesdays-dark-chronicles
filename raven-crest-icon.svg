@@ -1,0 +1,305 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="100%" height="100%">
+  <defs>
+    <!-- Deep Atmospheric Radial Background -->
+    <radialGradient id="bgAbyss" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#1b0a26" />
+      <stop offset="40%" stop-color="#0e0414" />
+      <stop offset="75%" stop-color="#050108" />
+      <stop offset="100%" stop-color="#000000" />
+    </radialGradient>
+
+    <!-- Ultra-Luminous Hyper-Gilded Metallic Gold -->
+    <linearGradient id="hyperGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="15%" stop-color="#fff3b0" />
+      <stop offset="35%" stop-color="#e6c656" />
+      <stop offset="60%" stop-color="#a3781f" />
+      <stop offset="85%" stop-color="#d4af37" />
+      <stop offset="100%" stop-color="#4a3203" />
+    </linearGradient>
+
+    <linearGradient id="goldHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#e6c656" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.9" />
+    </linearGradient>
+
+    <!-- Forged Damascened Dark Steel -->
+    <linearGradient id="damascusSteel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4e4859" />
+      <stop offset="25%" stop-color="#282333" />
+      <stop offset="50%" stop-color="#14111c" />
+      <stop offset="75%" stop-color="#1f1b29" />
+      <stop offset="100%" stop-color="#07050a" />
+    </linearGradient>
+
+    <!-- Ethereal Raven Feather Iridescence -->
+    <linearGradient id="featherIridescence" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b2b54" />
+      <stop offset="30%" stop-color="#1c162e" />
+      <stop offset="60%" stop-color="#0e1726" />
+      <stop offset="85%" stop-color="#090512" />
+      <stop offset="100%" stop-color="#020105" />
+    </linearGradient>
+
+    <!-- Crimson Blood Crystal Glow -->
+    <radialGradient id="bloodCrystal" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#ff6666" />
+      <stop offset="25%" stop-color="#ff0033" />
+      <stop offset="60%" stop-color="#990000" />
+      <stop offset="90%" stop-color="#400000" />
+      <stop offset="100%" stop-color="#120000" />
+    </radialGradient>
+
+    <radialGradient id="auraRed" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff0033" stop-opacity="0.5" />
+      <stop offset="50%" stop-color="#800000" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- High-Impact Filters -->
+    <filter id="shadowSuper" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000000" flood-opacity="0.95" />
+    </filter>
+
+    <filter id="crimsonAura" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="10" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <filter id="intenseGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur1" />
+      <feGaussianBlur stdDeviation="12" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur2" />
+        <feMergeNode in="blur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Reusable Filigree Leaf / Ornament -->
+    <g id="gothicLeaf">
+      <path d="M 0 0 C 15 -20 35 -25 50 -10 C 35 10 20 15 0 0 Z" fill="url(#hyperGold)" />
+      <path d="M 5 0 C 18 -12 30 -15 40 -8 C 28 4 18 8 5 0 Z" fill="#120c03" />
+    </g>
+
+    <!-- Reusable Gothic Crown Spike -->
+    <g id="crownSpike">
+      <path d="M 0 -50 L 12 0 L 0 10 L -12 0 Z" fill="url(#hyperGold)" stroke="#000" stroke-width="1" />
+      <polygon points="0,-45 7,-2 0,5 -7,-2" fill="url(#goldHighlight)" />
+      <circle cx="0" cy="-15" r="3" fill="url(#bloodCrystal)" />
+    </g>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1000" height="1000" fill="url(#bgAbyss)" />
+
+  <!-- Ethereal Crimson Halo Backlight -->
+  <circle cx="500" cy="500" r="420" fill="url(#auraRed)" filter="url(#intenseGlow)" />
+
+  <!-- Background Radiating Gothic Sacred Geometry Lines -->
+  <g stroke="url(#hyperGold)" stroke-width="0.75" opacity="0.25">
+    <circle cx="500" cy="500" r="440" fill="none" stroke-dasharray="4,8" />
+    <circle cx="500" cy="500" r="410" fill="none" />
+    <circle cx="500" cy="500" r="380" fill="none" stroke-dasharray="2,12" />
+    <!-- Pointed Star Geometry -->
+    <path d="M 500 60 L 500 940 M 60 500 L 940 500 M 189 189 L 811 811 M 189 811 L 811 189" opacity="0.3" />
+  </g>
+
+  <!-- ==================== OUTER MAJESTIC CROWN / CREST HEADER ==================== -->
+  <g transform="translate(500, 110)" filter="url(#shadowSuper)">
+    <!-- Imperial Gothic Crown Base -->
+    <path d="M -120 40 Q 0 20 120 40 L 140 -20 L 80 10 L 0 -50 L -80 10 L -140 -20 Z" fill="url(#hyperGold)" stroke="#0a0500" stroke-width="2" />
+    <path d="M -110 32 Q 0 15 110 32 L 125 -10 L 75 18 L 0 -32 L -75 18 L -125 -10 Z" fill="url(#damascusSteel)" />
+    <!-- Jewels on Crown Points -->
+    <circle cx="0" cy="-50" r="9" fill="url(#bloodCrystal)" filter="url(#crimsonAura)" />
+    <circle cx="-140" cy="-20" r="6" fill="url(#bloodCrystal)" />
+    <circle cx="140" cy="-20" r="6" fill="url(#bloodCrystal)" />
+    <circle cx="-80" cy="10" r="5" fill="url(#hyperGold)" />
+    <circle cx="80" cy="10" r="5" fill="url(#hyperGold)" />
+  </g>
+
+  <!-- ==================== MAIN GOTHIC SHIELD ==================== -->
+  <g filter="url(#shadowSuper)">
+    <!-- Shield Shadow Outline -->
+    <path d="M 500 130 
+             C 740 130 830 240 810 500 
+             C 790 700 500 900 500 900 
+             C 500 900 210 700 190 500 
+             C 170 240 260 130 500 130 Z" fill="none" stroke="#000000" stroke-width="24" />
+
+    <!-- Outer Armor Steel Frame -->
+    <path d="M 500 130 
+             C 740 130 830 240 810 500 
+             C 790 700 500 900 500 900 
+             C 500 900 210 700 190 500 
+             C 170 240 260 130 500 130 Z" fill="url(#damascusSteel)" stroke="url(#hyperGold)" stroke-width="8" />
+
+    <!-- Heavy Gold Beveled Inner Trim -->
+    <path d="M 500 160 
+             C 700 160 780 260 765 490 
+             C 745 660 500 840 500 840 
+             C 500 840 255 660 235 490 
+             C 220 260 300 160 500 160 Z" fill="#06020a" stroke="url(#hyperGold)" stroke-width="3" />
+
+    <!-- Inner Field Damask Texture Contour -->
+    <path d="M 500 180 
+             C 670 180 740 270 730 480 
+             C 710 630 500 790 500 790 
+             C 500 790 290 630 270 480 
+             C 260 270 330 180 500 180 Z" fill="url(#featherIridescence)" opacity="0.9" />
+  </g>
+
+  <!-- ==================== WROUGHT IRON FLOURISHES & THORNS ==================== -->
+  <g stroke="url(#hyperGold)" fill="none" stroke-width="4" filter="url(#shadowSuper)">
+    <!-- Left Ornamental Scroll -->
+    <path d="M 230 350 C 120 300 100 450 180 480 C 240 500 250 420 190 410 C 150 400 160 460 210 450" />
+    <path d="M 210 580 C 100 600 120 750 240 700 C 280 680 260 600 210 630" />
+
+    <!-- Right Ornamental Scroll -->
+    <path d="M 770 350 C 880 300 900 450 820 480 C 760 500 750 420 810 410 C 850 400 840 460 790 450" />
+    <path d="M 790 580 C 900 600 880 750 760 700 C 720 680 740 600 790 630" />
+  </g>
+
+  <!-- Spike & Gem Accents on Scrollwork -->
+  <use href="#crownSpike" x="140" y="420" transform="rotate(-45 140 420)" />
+  <use href="#crownSpike" x="860" y="420" transform="rotate(45 860 420)" />
+  <use href="#crownSpike" x="160" y="660" transform="rotate(-120 160 660)" />
+  <use href="#crownSpike" x="840" y="660" transform="rotate(120 840 660)" />
+
+  <!-- ==================== THE IMPERIAL RAVEN ==================== -->
+  <g id="hyperRaven" filter="url(#shadowSuper)">
+
+    <!-- Radiating Arc of Feathers / Halo behind Head -->
+    <g transform="translate(500, 380)" stroke="url(#hyperGold)" stroke-width="1.5" fill="url(#damascusSteel)">
+      <path d="M 0 -130 L 15 -70 L 0 -80 L -15 -70 Z" />
+      <path d="M 0 -130 L 15 -70 L 0 -80 L -15 -70 Z" transform="rotate(20)" />
+      <path d="M 0 -130 L 15 -70 L 0 -80 L -15 -70 Z" transform="rotate(-20)" />
+      <path d="M 0 -130 L 15 -70 L 0 -80 L -15 -70 Z" transform="rotate(40)" />
+      <path d="M 0 -130 L 15 -70 L 0 -80 L -15 -70 Z" transform="rotate(-40)" />
+      <path d="M 0 -130 L 15 -70 L 0 -80 L -15 -70 Z" transform="rotate(60)" />
+      <path d="M 0 -130 L 15 -70 L 0 -80 L -15 -70 Z" transform="rotate(-60)" />
+    </g>
+
+    <!-- Tail Feathers (Cascading Downward) -->
+    <g fill="url(#featherIridescence)" stroke="url(#hyperGold)" stroke-width="1.5">
+      <path d="M 500 650 L 460 820 L 500 860 L 540 820 Z" />
+      <path d="M 480 640 L 420 780 L 460 820 L 490 750 Z" />
+      <path d="M 520 640 L 580 780 L 540 820 L 510 750 Z" />
+    </g>
+
+    <!-- Left Primary Wing -->
+    <path d="M 440 380 
+             C 320 320 230 420 260 620 
+             C 300 670 370 650 430 580 
+             C 380 540 350 460 440 380 Z" fill="url(#featherIridescence)" stroke="url(#hyperGold)" stroke-width="2" />
+
+    <!-- Left Feather Layer Details -->
+    <path d="M 280 480 C 330 520 380 550 430 580" fill="none" stroke="url(#hyperGold)" stroke-width="1.5" />
+    <path d="M 265 530 C 320 560 370 580 420 600" fill="none" stroke="url(#hyperGold)" stroke-width="1.5" />
+    <path d="M 275 580 C 320 610 360 620 400 630" fill="none" stroke="url(#hyperGold)" stroke-width="1.5" />
+
+    <!-- Right Primary Wing -->
+    <path d="M 560 380 
+             C 680 320 770 420 740 620 
+             C 700 670 630 650 570 580 
+             C 620 540 650 460 560 380 Z" fill="url(#featherIridescence)" stroke="url(#hyperGold)" stroke-width="2" />
+
+    <!-- Right Feather Layer Details -->
+    <path d="M 720 480 C 670 520 620 550 570 580" fill="none" stroke="url(#hyperGold)" stroke-width="1.5" />
+    <path d="M 735 530 C 680 560 630 580 580 600" fill="none" stroke="url(#hyperGold)" stroke-width="1.5" />
+    <path d="M 725 580 C 680 610 640 620 600 630" fill="none" stroke="url(#hyperGold)" stroke-width="1.5" />
+
+    <!-- Torso / Muscular Chest Armor -->
+    <path d="M 440 380 
+             C 420 450 430 550 500 660 
+             C 570 550 580 450 560 380 
+             C 520 410 480 410 440 380 Z" fill="url(#featherIridescence)" stroke="url(#hyperGold)" stroke-width="2" />
+
+    <!-- Layered Breast Feathers (Gothic Scale Pattern) -->
+    <path d="M 460 430 Q 500 460 540 430" fill="none" stroke="url(#hyperGold)" stroke-width="1.5" />
+    <path d="M 450 470 Q 500 505 550 470" fill="none" stroke="url(#hyperGold)" stroke-width="1.5" />
+    <path d="M 460 510 Q 500 545 540 510" fill="none" stroke="url(#hyperGold)" stroke-width="1.5" />
+    <path d="M 470 550 Q 500 580 530 550" fill="none" stroke="url(#hyperGold)" stroke-width="1.5" />
+
+    <!-- Neck Structure -->
+    <path d="M 450 320 
+             C 430 350 435 380 460 410 
+             C 500 420 500 420 540 410 
+             C 565 380 570 350 550 320 Z" fill="url(#damascusSteel)" stroke="url(#hyperGold)" stroke-width="1.5" />
+
+    <!-- Raven Head Profile (Noble & Threatening) -->
+    <path d="M 450 320 
+             C 410 310 360 300 320 315 
+             C 290 325 270 340 280 355 
+             C 290 370 315 365 340 350 
+             C 365 335 410 335 430 360 
+             C 390 395 330 410 270 415 
+             C 290 435 340 450 380 450 
+             C 450 450 480 400 490 360 Z" fill="url(#featherIridescence)" stroke="url(#hyperGold)" stroke-width="2.5" />
+
+    <!-- Lethal Curving Razor Beak -->
+    <path d="M 320 315 
+             C 260 320 200 345 150 400 
+             C 180 415 230 425 270 425 
+             C 295 425 315 415 330 405 
+             C 310 390 290 365 315 340 
+             C 325 330 323 320 320 315 Z" fill="url(#damascusSteel)" stroke="url(#hyperGold)" stroke-width="2.5" />
+
+    <!-- Beak Razor Highlight -->
+    <path d="M 150 400 C 170 408 210 420 250 423 C 210 415 180 408 150 400 Z" fill="url(#hyperGold)" filter="url(#intenseGlow)" />
+
+    <!-- Sinister Ruby Eye with Diamond Flare -->
+    <circle cx="345" cy="355" r="8" fill="url(#bloodCrystal)" filter="url(#crimsonAura)" />
+    <circle cx="345" cy="355" r="3" fill="#ffffff" />
+    <path d="M 330 342 C 350 338 365 348 360 358" fill="none" stroke="url(#hyperGold)" stroke-width="2.5" />
+  </g>
+
+  <!-- ==================== GRAND INSCRIBED VICTORIAN BANNER ==================== -->
+  <g transform="translate(500, 780)" filter="url(#shadowSuper)">
+    <!-- Banner Shadow & Back Folds -->
+    <path d="M -260 40 L -330 10 L -310 60 L -330 110 L -240 80 Z" fill="url(#damascusSteel)" stroke="url(#hyperGold)" stroke-width="2" />
+    <path d="M 260 40 L 330 10 L 310 60 L 330 110 L 240 80 Z" fill="url(#damascusSteel)" stroke="url(#hyperGold)" stroke-width="2" />
+
+    <!-- Main Front Banner Body -->
+    <path d="M -260 10 
+             Q 0 -15 260 10 
+             L 280 65 
+             Q 0 40 -280 65 Z" fill="url(#damascusSteel)" stroke="url(#hyperGold)" stroke-width="3.5" />
+
+    <!-- Inner Metallic Inset Frame -->
+    <path d="M -250 18 
+             Q 0 -5 250 18 
+             L 265 57 
+             Q 0 32 -265 57 Z" fill="#060208" stroke="url(#hyperGold)" stroke-width="1.5" />
+
+    <!-- Latin Motto Text in Gold -->
+    <text x="0" y="42" font-family="&#39;Cinzel&#39;, &#39;Georgia&#39;, &#39;Times New Roman&#39;, serif" font-size="26" font-weight="bold" fill="url(#hyperGold)" text-anchor="middle" letter-spacing="8" filter="url(#intenseGlow)">
+      NOC TE  MIGRARE
+    </text>
+
+    <!-- Center Blood Gem Accent on Banner -->
+    <circle cx="0" cy="27" r="8" fill="url(#bloodCrystal)" stroke="url(#hyperGold)" stroke-width="2" filter="url(#crimsonAura)" />
+  </g>
+
+  <!-- ==================== BOTTOM PENDANT CROSS ==================== -->
+  <g transform="translate(500, 890)" filter="url(#shadowSuper)">
+    <!-- Hanging Chain Links -->
+    <line x1="-30" y1="-30" x2="-15" y2="0" stroke="url(#hyperGold)" stroke-width="3" />
+    <line x1="30" y1="-30" x2="15" y2="0" stroke="url(#hyperGold)" stroke-width="3" />
+
+    <!-- Gothic Cross Ornament -->
+    <path d="M -12 0 L 12 0 L 12 12 L 30 12 L 30 28 L 12 28 L 12 60 L -12 60 L -12 28 L -30 28 L -30 12 L -12 12 Z" fill="url(#damascusSteel)" stroke="url(#hyperGold)" stroke-width="2.5" />
+    <circle cx="0" cy="20" r="7" fill="url(#bloodCrystal)" filter="url(#crimsonAura)" />
+  </g>
+
+  <!-- Foreground Atmospheric Particles / Embers -->
+  <g fill="url(#bloodCrystal)" opacity="0.6" filter="url(#crimsonAura)">
+    <circle cx="220" cy="250" r="3" />
+    <circle cx="780" cy="280" r="4" />
+    <circle cx="160" cy="520" r="2" />
+    <circle cx="840" cy="550" r="3" />
+    <circle cx="310" cy="750" r="3.5" />
+    <circle cx="690" cy="720" r="2" />
+  </g>
+</svg>
