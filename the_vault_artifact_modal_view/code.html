@@ -1,0 +1,313 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>THE VAULT | MORTICIA'S KIN</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/geist" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:wght@100..900&amp;family=Libre+Caslon+Text:wght@100..900&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#140029",
+                        "surface-container-highest": "#353535",
+                        "on-secondary-fixed-variant": "#454747",
+                        "on-primary-container": "#7b7979",
+                        "background": "#131313",
+                        "on-primary-fixed-variant": "#474646",
+                        "inverse-primary": "#5f5e5e",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-primary-fixed": "#1c1b1b",
+                        "surface": "#131313",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#c4c7c7",
+                        "primary-container": "#0a0a0a",
+                        "surface-container": "#20201f",
+                        "tertiary-fixed-dim": "#ddb7ff",
+                        "secondary-fixed": "#e2e2e2",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "surface-variant": "#353535",
+                        "primary-fixed": "#e5e2e1",
+                        "on-background": "#e5e2e1",
+                        "tertiary-fixed": "#f0dbff",
+                        "surface-tint": "#c9c6c5",
+                        "secondary": "#c6c6c7",
+                        "outline": "#8e9192",
+                        "surface-bright": "#393939",
+                        "inverse-surface": "#e5e2e1",
+                        "on-secondary": "#2f3131",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "on-secondary-container": "#b4b5b5",
+                        "tertiary": "#ddb7ff",
+                        "on-tertiary-fixed-variant": "#622599",
+                        "on-tertiary": "#4a0080",
+                        "on-tertiary-fixed": "#2c0050",
+                        "on-error": "#690005",
+                        "on-tertiary-container": "#985ed0",
+                        "secondary-container": "#454747",
+                        "on-primary": "#313030",
+                        "error-container": "#93000a",
+                        "primary": "#c9c6c5",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-dim": "#131313",
+                        "surface-container-high": "#2a2a2a",
+                        "on-surface": "#e5e2e1",
+                        "inverse-on-surface": "#313030",
+                        "outline-variant": "#444748",
+                        "error": "#ffb4ab"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "120px",
+                        "container-max": "1120px",
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Libre Caslon Text"],
+                        "headline-md": ["Libre Caslon Text"],
+                        "headline-lg-mobile": ["Libre Caslon Text"],
+                        "label-sm": ["Geist"],
+                        "display-lg": ["Libre Caslon Text"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "38px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "300"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0A0A0A;
+            color: #e5e2e1;
+            cursor: crosshair;
+        }
+        .grain-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+        }
+        .hard-shadow {
+            box-shadow: 8px 8px 0px 0px #000000;
+        }
+        .artifact-border {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .artifact-border:hover {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<div class="grain-overlay"></div>
+<!-- Navigation Drawer (Desktop Anchor) -->
+<aside class="hidden md:flex h-full w-80 fixed left-0 top-0 bg-surface-container-lowest dark:bg-surface-container-lowest border-r border-white/20 shadow-[8px_0_0_0_#000000] flex-col p-gutter space-y-8 z-50">
+<div class="py-8">
+<h1 class="font-headline-md text-headline-md text-primary tracking-widest uppercase">CHRONICLES</h1>
+</div>
+<nav class="flex flex-col space-y-2">
+<a class="flex items-center gap-4 p-4 text-on-surface-variant hover:text-white hover:bg-white/5 transition-all scale-95 active:scale-90 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">home</span> The Void
+            </a>
+<a class="flex items-center gap-4 p-4 text-on-surface-variant hover:text-white hover:bg-white/5 transition-all scale-95 active:scale-90 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">menu_book</span> Grim Chronicles
+            </a>
+<a class="flex items-center gap-4 p-4 bg-white text-black font-bold transition-all scale-95 active:scale-90 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">auto_stories</span> The Vault
+            </a>
+<a class="flex items-center gap-4 p-4 text-on-surface-variant hover:text-white hover:bg-white/5 transition-all scale-95 active:scale-90 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">mail</span> Inquiries
+            </a>
+<a class="flex items-center gap-4 p-4 text-on-surface-variant hover:text-white hover:bg-white/5 transition-all scale-95 active:scale-90 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">visibility_off</span> Solitude
+            </a>
+</nav>
+</aside>
+<!-- Top App Bar (Mobile Only) -->
+<header class="md:hidden w-full top-0 sticky z-40 bg-background dark:bg-background border-b border-white/10 flex justify-between items-center px-margin-mobile h-16">
+<span class="material-symbols-outlined text-primary">menu</span>
+<h2 class="font-headline-lg text-headline-lg-mobile tracking-tighter text-on-background uppercase">THE VOID</h2>
+<span class="material-symbols-outlined text-primary">search</span>
+</header>
+<!-- Main Canvas -->
+<main class="md:ml-80 min-h-screen px-margin-mobile md:px-0">
+<div class="max-w-container-max mx-auto py-16 md:py-32">
+<!-- Hero Header -->
+<section class="mb-8 md:mb-16">
+<div class="max-w-3xl">
+<span class="font-label-sm text-label-sm text-on-primary-container uppercase tracking-[0.2em] block mb-4">Portfolio Archive</span>
+<h1 class="font-display-lg text-display-lg mb-8 leading-tight">The Vault: Collected Works of Isolation</h1>
+<div class="w-16 h-px bg-primary/30 mb-8"></div>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                        A curation of visual research, literary fragments, and architectural manifestations. Every artifact within this chamber serves as a testament to the beauty found in the shadows.
+                    </p>
+</div>
+</section>
+<!-- Categories / Filter -->
+<nav class="flex flex-wrap gap-8 mb-16 border-b border-white/5 pb-8">
+<button class="font-label-sm text-label-sm text-primary uppercase tracking-widest hover:text-white transition-colors">All Revelations</button>
+<button class="font-label-sm text-label-sm text-on-primary-container uppercase tracking-widest hover:text-white transition-colors">Lamentations</button>
+<button class="font-label-sm text-label-sm text-on-primary-container uppercase tracking-widest hover:text-white transition-colors">Incantations</button>
+<button class="font-label-sm text-label-sm text-on-primary-container uppercase tracking-widest hover:text-white transition-colors">Manifestos</button>
+</nav>
+<!-- Portfolio Grid -->
+<div class="grid grid-cols-2 md:grid-cols-12 gap-3">
+<!-- Large Featured Tile spanning columns -->
+<article class="col-span-2 md:col-span-8 group relative overflow-hidden bg-surface-container-lowest artifact-border aspect-[16/9]">
+<img class="w-full h-full object-cover desaturate contrast-125 transition-transform duration-700 group-hover:scale-105" data-alt="A high-contrast black and white architectural photograph of a brutalist cathedral interior." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmXcYU7tfUF2RtZHspAwe1jPMRL_J_UCkkQ3YN8YOuh0uSVwfyvNKZrmnLjLWOs6OEvT6F67bs0pgFgKXvrpakyaV1OwofI1zTi73fSrsITPxbnjy3_fVWaIHfX5ZQSjGbsTd0UJzeMsyEcV7tYRpNanUNP9DG_uCymChYSdxnqnFARR04sgrMLwGoTkjC1CcG6rnsp1lkizOORON294zMBvBya43px1MlSNz24_uirexuxfypxI7qpEgb98CKI6GEHYj0N2ikNg2O">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-4 md:p-6">
+<div class="px-2 py-0.5 border border-white/20 inline-block w-fit mb-2">
+<span class="font-label-sm text-[10px] text-white uppercase tracking-widest">Manifestos</span>
+</div>
+<h3 class="font-headline-md text-base md:text-xl text-white">The Architecture of Silence</h3>
+</div>
+</article>
+<!-- Small Tile -->
+<article class="col-span-1 md:col-span-4 group relative overflow-hidden bg-surface-container-lowest artifact-border aspect-square">
+<img class="w-full h-full object-cover desaturate contrast-125 transition-transform duration-700 group-hover:scale-110" data-alt="A macro photograph of an antique ink bottle and a quill pen resting on a piece of aged parchment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARbr-40853hHyPj1G2GhsbzQC-qNLryqCJeur9b16JZ9tWoSDHtUTxOlt1Jvf23dgspwnot7sj-8Qh7X5oExk83Bm8a5geBtiMUeP_xjzBU7caoaBHXMFaqoUFDLghP0DQl8Om0pyWt4jlPIpZH3kjX_7YtP7Dqgzaw38w_ljQv0D_lEcb2-WBJDH4_DjZTgD5y7ZZv-0n_MMWCY8CT2SM5AWVM9pVlqDsTCa0JXNFk_h7OlsUYey_Z8MAe-4xrn3Db5cz1NS6UVPO">
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-3 text-center">
+<div>
+<span class="font-label-sm text-[10px] text-white uppercase block mb-1 tracking-widest">Incantations</span>
+<h3 class="font-headline-md text-sm md:text-base text-white">Ink &amp; Obsidian</h3>
+</div>
+</div>
+</article>
+<!-- Vertical Tile (Tree) -->
+<article class="col-span-1 md:col-span-4 group relative overflow-hidden bg-surface-container-lowest artifact-border aspect-square md:aspect-[3/4]">
+<img class="w-full h-full object-cover desaturate brightness-75 contrast-150 transition-transform duration-700 group-hover:scale-105" data-alt="A desolate winter landscape featuring a single, gnarled leafless tree against a stark, pale sky." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQWMGM6wclH6K1d6jGmQf3F6EPWt85ieTe1DpLvrP3cjSKRhCo-X9nL73jCukgltoX9hZFsIk30q45RmTBqN5YT8409divupavpSrtET4NV6ZcWhk4YTPmWBFfLiv51Mq02qloUuvNkXlH9OKxlMvrLAzTOO5stWflzgihTV-aU6xVK28Qd8QCvKo5skbBaZkatpk7D0gfb6qSzKQu832UMwSPsPOycTak4tXcsCtFxjOtgJNlISzFUymBa6zP2Ze5GOETHICGUdIF">
+<div class="absolute inset-0 p-3 md:p-6 flex flex-col justify-between">
+<div class="w-6 h-6 border-t border-l border-white/30"></div>
+<div>
+<span class="font-label-sm text-[10px] text-primary uppercase mb-1 block tracking-widest">Lamentations</span>
+<h3 class="font-headline-md text-sm md:text-base leading-tight">Solitary Growth</h3>
+</div>
+</div>
+</article>
+<!-- Grid Tile (Raven) -->
+<article class="col-span-1 md:col-span-4 group relative overflow-hidden bg-surface-container-lowest artifact-border aspect-square md:aspect-[3/4]">
+<img class="w-full h-full object-cover desaturate brightness-50 contrast-125 transition-transform duration-700 group-hover:scale-110" data-alt="A minimalist composition of a sharp raven silhouette in mid-flight against a solid, dark grey background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQpjdqZwhgut0s1ei8omEE_3TINvy9PD8cbz382-iV-KfpdIji9wq0VUpfXx8-ZBxOGqMg8kRx7Wo4dm-M1arEHpjcYtLE9g3wFhuIr-teEJuoi9P5IZz-rVRKtsEYSWFfYs-89HxRYM-cPyEiKFjxBUt8ty2skm8w4Fcl8OWPQE3edTJdcTpN1nnoDnwtYQ9S69ZqWHA_l5N-v55ubbUqN7b4KNjnutMeH742QdRzWfYqU3bbunaH6yGJdZFh_GTD-drcs24L3gpu">
+<div class="absolute top-3 right-3">
+<span class="material-symbols-outlined text-white/50 text-base md:text-xl group-hover:text-primary transition-colors">north_east</span>
+</div>
+<div class="absolute bottom-0 left-0 p-3 md:p-6 w-full bg-background/90 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+<span class="font-label-sm text-[10px] text-primary uppercase tracking-widest">Manifestos</span>
+<h3 class="font-headline-md text-xs md:text-base leading-tight">Flight of the Void</h3>
+</div>
+</article>
+<!-- Medium Tile (Quote) spanning 1 col mobile, 4 col desktop -->
+<article class="col-span-1 md:col-span-4 group relative overflow-hidden bg-surface-container-lowest artifact-border aspect-square md:aspect-[3/4]">
+<div class="absolute inset-0 bg-[#1A1A1A] p-4 md:p-8 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-2xl md:text-4xl mb-3 md:mb-6 text-primary">auto_stories</span>
+<h3 class="font-headline-md text-xs md:text-base mb-2 md:mb-4 italic leading-snug">"The boundaries which divide Life from Death are at best shadowy and vague."</h3>
+<p class="font-label-sm text-[10px] md:text-label-sm text-on-primary-container tracking-widest">— E.A. POE</p>
+</div>
+</article>
+</div>
+<!-- Divider with Icon -->
+<div class="flex items-center justify-center my-8 md:my-16">
+<div class="flex-grow h-px bg-white/10"></div>
+<div class="px-8">
+<span class="material-symbols-outlined text-on-primary-container">close</span>
+</div>
+<div class="flex-grow h-px bg-white/10"></div>
+</div>
+<!-- Detailed Section -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-gutter items-center">
+<div class="artifact-border p-1 bg-surface-container-lowest">
+<img class="w-full desaturate" data-alt="A vintage black camera sitting on a glass surface that reflects its dark silhouette. The lighting is low-key, highlighting only the metallic edges and the lens element. The background is a pure, deep black void. The overall look is professional, sophisticated, and moody, perfectly aligned with a gothic minimalist product photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZuFGq3UwLJPiKUS2vS9rArscy60np1SWhTyDFcy7koIwwcwWwm2VEU_qeMN224gt1TmslU2SlBZWL1CP-DEhUgsh6dZ8f6TNy8bp4JicQaIw5sw0atI22oV6gkVn0Hsn-GQEGlqEWr2LCCXsfm7Lk9-2o4ccq2TpzoVio6z-VKP8_A912KKxAOivCJKSBGnDq6NbcE4qlv7U1uvsiphOsEQGeZUDMuXys_qW_4VPJCgPlxrtd255P_nf6Vg5q_b_-lRYtBtp5kobd">
+</div>
+<div class="md:pl-16">
+<h2 class="font-headline-lg text-headline-lg mb-6">Capturing the Invisible</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">
+                        The Vault is not merely a collection; it is a ritual of preservation. Each project is deconstructed to its core essence—the ink, the shadow, and the sharp edge of intent.
+                    </p>
+<button class="px-8 py-4 border border-white uppercase font-label-sm text-label-sm tracking-widest hover:bg-white hover:text-black transition-all duration-300 active:scale-95">
+                        Inquire of the Archive
+                    </button>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-gap border-t border-white/5 bg-surface-container-lowest flex flex-col items-center gap-4 px-margin-mobile text-center z-40 relative">
+<h2 class="font-headline-md text-headline-md text-primary tracking-widest">THE VOID</h2>
+<div class="flex flex-wrap justify-center gap-8 mb-4">
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-primary-container hover:text-white underline transition-opacity duration-500" href="#">The Abyss</a>
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-primary-container hover:text-white underline transition-opacity duration-500" href="#">Terms of Grief</a>
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-primary-container hover:text-white underline transition-opacity duration-500" href="#">Privacy Policy</a>
+</div>
+<p class="font-label-sm text-label-sm uppercase tracking-widest text-on-primary-container opacity-50">
+            © MMXIV MORTICIA'S KIN. ALL RIGHTS RESERVED.
+        </p>
+</footer>
+<!-- Bottom Nav Bar (Mobile Only) -->
+<nav class="flex md:hidden fixed bottom-0 w-full justify-around items-center h-16 z-50 bg-background border-t border-white/10">
+<a class="text-on-primary-container opacity-50 hover:opacity-100 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">home</span>
+</a>
+<a class="text-on-primary-container opacity-50 hover:opacity-100 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+</a>
+<a class="text-primary scale-110 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+</a>
+<a class="text-on-primary-container opacity-50 hover:opacity-100 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">send</span>
+</a>
+</nav>
+<script>
+        // Subtle micro-interaction: Cursor light effect
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            // You could add a subtle radial gradient that follows the mouse here
+            // but we'll stick to vanilla JS for simple atmospheric shifts
+        });
+
+        // Hover scale effect for cards as requested
+        const tiles = document.querySelectorAll('article');
+        tiles.forEach(tile => {
+            tile.addEventListener('mouseenter', () => {
+                tile.style.transition = 'all 0.4s ease';
+                tile.classList.add('hard-shadow');
+            });
+            tile.addEventListener('mouseleave', () => {
+                tile.classList.remove('hard-shadow');
+            });
+        });
+    </script>
+<div class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto duration-300 transition-all" id="artifact-modal"><div class="relative w-full max-w-2xl bg-[#0e0e0e] border border-white/20 shadow-[0_0_50px_rgba(0,0,0,0.9)] max-h-[92vh] sm:max-h-[88vh] overflow-y-auto flex flex-col my-auto"><div class="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#141414]"><div class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-primary/70 inline-block"></span><span class="font-label-sm text-[11px] uppercase tracking-[0.25em] text-on-primary-container">ARTIFACT ARCHIVE // CLASSIFICATION: RELIC-04</span></div><button aria-label="Close modal" class="text-white/60 hover:text-white transition-colors p-1 flex items-center justify-center" onclick="document.getElementById('artifact-modal').style.display='none'"><span class="material-symbols-outlined text-xl">close</span></button></div><div class="p-6 md:p-8 space-y-6"><div class="relative border border-white/10 p-2 bg-[#080808]"><div class="absolute top-1 left-1 w-3 h-3 border-t border-l border-white/40 pointer-events-none"></div><div class="absolute top-1 right-1 w-3 h-3 border-t border-r border-white/40 pointer-events-none"></div><div class="absolute bottom-1 left-1 w-3 h-3 border-b border-l border-white/40 pointer-events-none"></div><div class="absolute bottom-1 right-1 w-3 h-3 border-b border-r border-white/40 pointer-events-none"></div><div class="aspect-[16/10] overflow-hidden bg-black flex items-center justify-center"><img alt="Capturing the Invisible camera specimen" class="w-full h-full object-cover desaturate contrast-125 brightness-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZuFGq3UwLJPiKUS2vS9rArscy60np1SWhTyDFcy7koIwwcwWwm2VEU_qeMN224gt1TmslU2SlBZWL1CP-DEhUgsh6dZ8f6TNy8bp4JicQaIw5sw0atI22oV6gkVn0Hsn-GQEGlqEWr2LCCXsfm7Lk9-2o4ccq2TpzoVio6z-VKP8_A912KKxAOivCJKSBGnDq6NbcE4qlv7U1uvsiphOsEQGeZUDMuXys_qW_4VPJCgPlxrtd255P_nf6Vg5q_b_-lRYtBtp5kobd"></div></div><div class="space-y-2 border-b border-white/10 pb-4"><div><span class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-on-surface-variant block mb-1">ARCHIVED: OCTOBER 1964 • NEVERMORE VAULT</span><h2 class="font-headline-lg text-2xl md:text-3xl text-white font-normal leading-tight">Capturing the Invisible</h2><p class="font-headline-md text-xs md:text-sm text-primary/70 italic">Leica M3 // Morticia's Specimen</p></div></div><div class="space-y-3"><div class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-primary/80">FORENSIC &amp; CURATORIAL SPECIFICATIONS</div><div class="grid grid-cols-2 gap-3 text-xs bg-white/[0.02] border border-white/5 p-3.5"><div class="space-y-1"><span class="text-white/40 block text-[10px] uppercase tracking-wider">MATERIAL</span><span class="text-on-background font-body-md text-xs">Brass, blackened vulcanite</span></div><div class="space-y-1"><span class="text-white/40 block text-[10px] uppercase tracking-wider">PROVENANCE</span><span class="text-on-background font-body-md text-xs">Crypt Archives, Chamber VII</span></div><div class="space-y-1"><span class="text-white/40 block text-[10px] uppercase tracking-wider">CONDITION</span><span class="text-on-background font-body-md text-xs">Hauntingly Pristine</span></div><div class="space-y-1"><span class="text-white/40 block text-[10px] uppercase tracking-wider">AURA DISPERSION</span><span class="text-on-background font-body-md text-xs">Stagnant / Sub-zero</span></div></div></div><div class="space-y-2 border-l border-white/20 pl-4 py-1"><p class="font-body-md text-xs md:text-sm text-on-surface-variant leading-relaxed italic">“Used solely to capture non-luminous spectral phenomena and shadows cast by things that do not exist in daylight. Each exposure consumes a minute fragment of the subject's memory.”</p></div><div class="p-4 border border-white/10 bg-white/[0.03] space-y-3.5 my-2"><div class="flex items-center justify-between border-b border-white/5 pb-2"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-primary/70">graphic_eq</span><span class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">AUDIO ARCHIVE // CAPTURED WHISPERS</span></div><span class="font-label-sm text-[9px] uppercase tracking-widest text-white/40 border border-white/10 px-1.5 py-0.5">EVP // 432Hz</span></div><div class="flex items-center gap-3.5"><button type="button" aria-label="Play spectral recording" class="w-9 h-9 border border-white/20 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition-all flex-shrink-0 group"><span class="material-symbols-outlined text-lg group-hover:scale-110 transition-transform">play_arrow</span></button><div class="flex-1 space-y-1.5"><div class="flex items-center justify-between text-[11px]"><span class="text-white/80 font-body-md text-xs truncate">Sub-Zero EVP // Chamber VII</span><span class="font-label-sm text-[10px] text-white/50 tracking-widest tabular-nums">01:24 / 03:12</span></div><div class="flex items-end gap-1 h-6 py-0.5 cursor-pointer group"><div class="w-1 h-2 bg-white/70"></div><div class="w-1 h-3.5 bg-white"></div><div class="w-1 h-5 bg-white"></div><div class="w-1 h-3 bg-white"></div><div class="w-1 h-4.5 bg-white"></div><div class="w-1 h-2.5 bg-white"></div><div class="w-1 h-5.5 bg-white"></div><div class="w-1 h-4 bg-white"></div><div class="w-1 h-3 bg-white"></div><div class="w-1 h-5 bg-white"></div><div class="w-1 h-2 bg-white"></div><div class="w-1 h-4 bg-white"></div><div class="w-1 h-1.5 bg-white/30"></div><div class="w-1 h-3 bg-white/20"></div><div class="w-1 h-4.5 bg-white/20"></div><div class="w-1 h-2 bg-white/20"></div><div class="w-1 h-5 bg-white/20"></div><div class="w-1 h-3.5 bg-white/20"></div><div class="w-1 h-1.5 bg-white/20"></div><div class="w-1 h-4 bg-white/20"></div><div class="w-1 h-2 bg-white/20"></div><div class="w-1 h-3.5 bg-white/20"></div><div class="w-1 h-2 bg-white/20"></div><div class="w-1 h-1 bg-white/20"></div></div></div><button type="button" aria-label="Mute audio" class="text-white/40 hover:text-white transition-colors p-1 flex-shrink-0"><span class="material-symbols-outlined text-base">volume_up</span></button></div><div class="flex items-center justify-between pt-1 border-t border-white/5 text-[9px] uppercase tracking-widest text-white/40"><span class="flex items-center gap-1"><span class="w-1 h-1 bg-primary/70 inline-block"></span> FORMAT: MAGNETIC WIRE RELIC</span><span class="">RESONANCE: -18.4 dB</span></div></div><div class="pt-2 space-y-4"><div class="flex flex-col sm:flex-row gap-3"><button class="flex-1 bg-white hover:bg-neutral-200 text-black py-3.5 px-6 font-label-sm text-xs uppercase tracking-widest font-bold transition-all text-center flex items-center justify-center gap-2 active:scale-95"><span class="material-symbols-outlined text-sm">search</span> INSPECT NEGATIVES</button><button class="flex-1 border border-white/30 hover:border-white text-white hover:bg-white/5 py-3.5 px-6 font-label-sm text-xs uppercase tracking-widest transition-all text-center flex items-center justify-center gap-2 active:scale-95"><span class="material-symbols-outlined text-sm">mail</span> TRANSMIT INQUIRY</button></div><div class="flex items-center justify-between pt-2 border-t border-white/5 text-xs text-white/50"><button class="flex items-center gap-1.5 hover:text-white transition-colors font-label-sm text-[11px] uppercase tracking-widest"><span class="material-symbols-outlined text-sm">west</span> PREVIOUS ARTIFACT</button><span class="text-white/20 font-label-sm text-[10px]">04 / 12</span><button class="flex items-center gap-1.5 hover:text-white transition-colors font-label-sm text-[11px] uppercase tracking-widest">NEXT ARTIFACT <span class="material-symbols-outlined text-sm">east</span></button></div></div></div></div></div>
+
+</body></html>

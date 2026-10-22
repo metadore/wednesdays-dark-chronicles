@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="/reader-config.js?v=1"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#140029",
+                    "surface-container-highest": "#353535",
+                    "on-secondary-fixed-variant": "#454747",
+                    "on-primary-container": "#7b7979",
+                    "background": "#131313",
+                    "on-primary-fixed-variant": "#474646",
+                    "inverse-primary": "#5f5e5e",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-primary-fixed": "#1c1b1b",
+                    "surface": "#131313",
+                    "on-error-container": "#ffdad6",
+                    "on-surface-variant": "#c4c7c7",
+                    "primary-container": "#0a0a0a",
+                    "surface-container": "#20201f",
+                    "tertiary-fixed-dim": "#ddb7ff",
+                    "secondary-fixed": "#e2e2e2",
+                    "primary-fixed-dim": "#c9c6c5",
+                    "surface-variant": "#353535",
+                    "primary-fixed": "#e5e2e1",
+                    "on-background": "#e5e2e1",
+                    "tertiary-fixed": "#f0dbff",
+                    "surface-tint": "#c9c6c5",
+                    "secondary": "#c6c6c7",
+                    "outline": "#8e9192",
+                    "surface-bright": "#393939",
+                    "inverse-surface": "#e5e2e1",
+                    "on-secondary": "#2f3131",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "on-secondary-container": "#b4b5b5",
+                    "tertiary": "#ddb7ff",
+                    "on-tertiary-fixed-variant": "#622599",
+                    "on-tertiary": "#4a0080",
+                    "on-tertiary-fixed": "#2c0050",
+                    "on-error": "#690005",
+                    "on-tertiary-container": "#985ed0",
+                    "secondary-container": "#454747",
+                    "on-primary": "#313030",
+                    "error-container": "#93000a",
+                    "primary": "#c9c6c5",
+                    "surface-container-low": "#1c1b1b",
+                    "surface-dim": "#131313",
+                    "surface-container-high": "#2a2a2a",
+                    "on-surface": "#e5e2e1",
+                    "inverse-on-surface": "#313030",
+                    "outline-variant": "#444748",
+                    "error": "#ffb4ab"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-gap": "120px",
+                    "container-max": "1120px",
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Libre Caslon Text"],
+                    "headline-md": ["Libre Caslon Text"],
+                    "headline-lg-mobile": ["Libre Caslon Text"],
+                    "label-sm": ["Geist"],
+                    "display-lg": ["Libre Caslon Text"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "38px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                    "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "300"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0A0A0A;
+            color: #e5e2e1;
+            cursor: crosshair;
+        }
+        .crypt-border {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .artifact-border {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .input-underline {
+            border: none;
+            border-bottom: 1px solid #2E2E2E;
+            background: transparent;
+            border-radius: 0;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .input-underline:focus {
+            outline: none;
+            box-shadow: none;
+            border-bottom: 2px solid #c9c6c5;
+        }
+        /* A keyboard user must be able to see where they are. The border
+           change above is too subtle to serve as the only indicator, so a
+           visible ring is added on top of it. */
+        .input-underline:focus-visible {
+            outline: 2px solid #c9c6c5;
+            outline-offset: 3px;
+        }
+        /* Respect a reduced-motion preference. */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        .grain-overlay {
+            pointer-events: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* The same grain texture the other pages use. The previous
+               source, grainy-gradients.vercel.app, now presents an
+               untrusted certificate, so the browser refused it and the
+               page logged a network error. */
+            background: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+            opacity: 0.03;
+            z-index: 9999;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md selection:bg-white selection:text-black">
+<div class="grain-overlay"></div>
+<!-- Navigation Drawer (Desktop Anchor) -->
+<aside class="hidden md:flex flex-col p-gutter space-y-4 h-full w-80 fixed left-0 top-0 bg-surface-container-lowest border-r border-white/20 shadow-[8px_0_0_0_#000000] z-40">
+<div class="mb-12">
+<h2 class="font-headline-md text-headline-md text-primary tracking-tighter">CHRONICLES</h2>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-white/5 transition-all transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-body-md text-body-md">The Void</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-white/5 transition-all transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-body-md text-body-md">Grim Chronicles</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-white/5 transition-all transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">auto_stories</span>
+<span class="font-body-md text-body-md">The Vault</span>
+</a>
+<!-- Active State: Inquiries -->
+<a class="flex items-center gap-4 px-4 py-3 bg-white text-black font-bold transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-body-md text-body-md">Inquiries</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-white/5 transition-all transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">visibility_off</span>
+<span class="font-body-md text-body-md">Solitude</span>
+</a>
+</nav>
+</aside>
+<!-- Top App Bar (Mobile & Identity) -->
+<header class="w-full top-0 sticky bg-background border-b border-white/10 z-30">
+<div class="flex justify-between items-center px-margin-mobile h-16 w-full max-w-container-max mx-auto md:pl-80">
+<div class="flex items-center">
+<span class="material-symbols-outlined md:hidden mr-4 cursor-pointer">menu</span>
+<h1 class="font-headline-lg text-headline-lg-mobile tracking-tighter text-on-background">THE VOID</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors cursor-pointer">search</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="min-h-screen md:ml-80 flex items-center justify-center py-section-gap px-margin-mobile">
+<div class="w-full max-w-2xl">
+<!-- Header Section -->
+<div class="mb-section-gap text-center md:text-left">
+<h2 class="font-display-lg text-display-lg uppercase tracking-tighter mb-4">SEND WORD.</h2>
+<div class="w-12 h-[1px] bg-white opacity-20 mx-auto md:mx-0 mb-8"></div>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">Leave your thoughts at the threshold of the abyss. Some calls are answered; many are lost to the wind.</p>
+</div>
+<!-- Minimalist Contact Form -->
+<form id="form-inquiry" action="#" class="space-y-12" novalidate>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm uppercase text-on-primary-container" for="inquiry-name">Your Name</label>
+<input class="input-underline py-4 text-on-surface placeholder:opacity-20 placeholder:italic" id="inquiry-name" name="name" placeholder="Identity" type="text" maxlength="100" autocomplete="name"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm uppercase text-on-primary-container" for="inquiry-email">Your Email</label>
+<input class="input-underline py-4 text-on-surface placeholder:opacity-20 placeholder:italic" id="inquiry-email" name="email" placeholder="raven@thevoid.example" type="email" maxlength="255" autocomplete="email"/>
+</div>
+<div class="flex flex-col gap-2 md:col-span-2">
+<label class="font-label-sm text-label-sm uppercase text-on-primary-container" for="inquiry-intent">Nature of Inquiry</label>
+<select class="input-underline py-4 text-on-surface appearance-none bg-transparent" id="inquiry-intent" name="intent">
+<option disabled="" selected="" value="">Select Intent</option>
+<option value="business">The Vault Access</option>
+<option value="personal">Whispered Secrets</option>
+<option value="press">Grim Chronicles Press</option>
+<option value="other">General Despair</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm uppercase text-on-primary-container" for="inquiry-message">Message</label>
+<textarea class="input-underline py-4 text-on-surface placeholder:opacity-20 placeholder:italic resize-none" id="inquiry-message" name="message" placeholder="Speak into the dark..." rows="4" maxlength="5000"></textarea>
+</div>
+<div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+<button class="w-full md:w-auto px-12 py-5 bg-white text-black font-bold uppercase tracking-widest hover:bg-transparent hover:text-white border border-white transition-all duration-300" id="inquiry-submit" type="submit">
+                        TRANSMIT
+                    </button>
+<p class="font-label-sm text-label-sm text-on-primary-container italic">Replies are not guaranteed.</p>
+</div>
+</form>
+<div id="inquiry-response" role="status" aria-live="polite"></div>
+<!-- Atmospheric Card Grid (Secondary content) -->
+<div class="mt-section-gap grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="crypt-border p-8 bg-surface-container-lowest">
+<span class="material-symbols-outlined text-4xl mb-4 text-on-surface-variant">history_edu</span>
+<h3 class="font-headline-md text-headline-md mb-2">Correspondence</h3>
+<p class="font-body-md text-on-surface-variant">We prioritize high-concept inquiries and literary discourse over mundane chatter.</p>
+</div>
+<div class="artifact-border p-8 bg-surface-container-low">
+<span class="material-symbols-outlined text-4xl mb-4 text-on-surface-variant">location_on</span>
+<h3 class="font-headline-md text-headline-md mb-2">Presence</h3>
+<p class="font-body-md text-on-surface-variant">Our physical coordinates remain shrouded. Digital waves are the only bridge.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-gap border-t border-white/5 bg-surface-container-lowest md:ml-80">
+<div class="flex flex-col items-center gap-4 px-margin-mobile text-center">
+<h3 class="font-headline-md text-headline-md text-primary">THE VOID</h3>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-primary-container hover:text-white underline transition-opacity duration-500" href="#">The Abyss</a>
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-primary-container hover:text-white underline transition-opacity duration-500" href="#">Terms of Grief</a>
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-primary-container hover:text-white underline transition-opacity duration-500" href="#">Privacy Policy</a>
+</div>
+<p class="font-label-sm text-label-sm text-on-primary-container mt-8 opacity-50">© MMXIV MORTICIA'S KIN. ALL RIGHTS RESERVED.</p>
+</div>
+</footer>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="md:hidden flex justify-around items-center h-16 z-50 bg-background fixed bottom-0 w-full border-t border-white/10">
+<a class="text-on-primary-container opacity-50 hover:opacity-100 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">home</span>
+</a>
+<a class="text-on-primary-container opacity-50 hover:opacity-100 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+</a>
+<a class="text-on-primary-container opacity-50 hover:opacity-100 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+</a>
+<!-- Active: Send/Inquiry -->
+<a class="text-primary scale-110 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">send</span>
+</a>
+</nav>
+<script>
+        // Custom interactive micro-interaction for the crosshair cursor
+        document.addEventListener('mousemove', (e) => {
+            const body = document.querySelector('body');
+            // Subtle lighting effect following mouse could go here if needed
+        });
+
+        // NOTE: the previous "form submission animation placeholder" block
+        // attached its own submit listener that called e.preventDefault(),
+        // showed a fake alert and never sent anything to the API. The real
+        // handler lives in the script below and is now the only one.
+    </script>
+
+<script>
+    const API_BASE = (window.ReaderConfig && window.ReaderConfig.apiBase)
+        || window.__API_BASE__
+        || '/api';
+    // Named distinctly from the `form` constant in the script above: both are
+    // top-level `const` declarations in the same global scope, and a duplicate
+    // identifier is a SyntaxError that would stop this handler from binding.
+    const inquiryForm = document.getElementById('form-inquiry');
+    const responseMsg = document.getElementById('inquiry-response');
+    const submitBtn = document.getElementById('inquiry-submit');
+
+    // The API mirrors these limits in src/controllers/inquiry.controller.js.
+    const MAX_NAME = 100;
+    const MAX_EMAIL = 255;
+    const MAX_MESSAGE = 5000;
+    const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Guards against an accidental double submit (double click, Enter held
+    // down, or a flaky connection retried by the browser).
+    const DUPLICATE_WINDOW_MS = 30000;
+    let lastSubmission = null;
+    let inFlight = false;
+
+    const setStatus = (text, kind) => {
+        responseMsg.textContent = text;
+        const tone = kind === 'success'
+            ? 'text-primary'
+            : kind === 'pending'
+                ? 'text-on-primary-container'
+                : 'text-error-container';
+        responseMsg.className = `font-label-sm text-label-sm ${tone} mt-4`;
+    };
+
+    /** Validate against the same rules the API enforces. */
+    const validate = (data) => {
+        if (!data.name || !data.name.trim()) return 'A name is required before the void can answer.';
+        if (!data.email || !data.email.trim()) return 'An email address is required so a reply can find you.';
+        if (!EMAIL_PATTERN.test(data.email.trim())) return 'That email address does not look like a valid address.';
+        if (!data.message || !data.message.trim()) return 'A message is required.';
+        if (data.name.length > MAX_NAME) return `Your name must be ${MAX_NAME} characters or fewer.`;
+        if (data.email.length > MAX_EMAIL) return `Your email must be ${MAX_EMAIL} characters or fewer.`;
+        if (data.message.length > MAX_MESSAGE) return `Your message must be ${MAX_MESSAGE} characters or fewer.`;
+        return null;
+    };
+
+    inquiryForm.onsubmit = async (e) => {
+        e.preventDefault();
+
+        if (inFlight) {
+            setStatus('Your message is still being cast into the void. Please wait.', 'pending');
+            return;
+        }
+
+        const formData = new FormData(inquiryForm);
+        const raw = Object.fromEntries(formData);
+        const data = {
+            name: (raw.name || '').trim(),
+            email: (raw.email || '').trim(),
+            message: (raw.message || '').trim(),
+            intent: raw.intent || '',
+        };
+
+        const problem = validate(data);
+        if (problem) {
+            setStatus(problem, 'error');
+            return;
+        }
+
+        // Duplicate guard: the same message from the same sender inside the
+        // window is treated as a repeat rather than a new inquiry.
+        const signature = `${data.name}|${data.email}|${data.message}`;
+        if (lastSubmission && lastSubmission.signature === signature
+            && (Date.now() - lastSubmission.at) < DUPLICATE_WINDOW_MS) {
+            setStatus('That message has already been sent. The void does not accept echoes.', 'error');
+            return;
+        }
+
+        inFlight = true;
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-50', 'pointer-events-none');
+        setStatus('Sending...', 'pending');
+
+        try {
+            // The inquiry form is an anonymous write, so it carries a CSRF
+            // token, exactly as the comment form does. The token comes from
+            // the same endpoint and must travel with the session cookies.
+            const csrfRes = await fetch(`${API_BASE}/auth/csrf-token`, { credentials: 'include' });
+            if (!csrfRes.ok) throw new Error('Could not establish a secure session.');
+            const { token } = await csrfRes.json();
+
+            const res = await fetch(`${API_BASE}/inquiries`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-csrf-token': token,
+                },
+                credentials: 'include',
+                body: JSON.stringify(data),
+            });
+            const result = await res.json().catch(() => ({}));
+
+            if (res.ok) {
+                lastSubmission = { signature, at: Date.now() };
+                setStatus(result.message || 'Your inquiry has been cast into the void.', 'success');
+                inquiryForm.reset();
+            } else {
+                throw new Error(result.error || 'The void rejected your message.');
+            }
+        } catch (e) {
+            setStatus(e.message, 'error');
+        } finally {
+            inFlight = false;
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('opacity-50', 'pointer-events-none');
+        }
+    };
+</script>
+</body></html>

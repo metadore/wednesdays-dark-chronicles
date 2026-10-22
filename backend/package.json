@@ -1,0 +1,41 @@
+{
+  "name": "wednesdays-dark-chronicles-backend",
+  "version": "1.0.0",
+  "description": "Backend for Wednesday's Dark Chronicles",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "cross-env NODE_ENV=test mocha 'tests/**/*.test.js' --exit",
+    "test:comments": "cross-env NODE_ENV=test mocha 'tests/api/comments.test.js' --exit",
+    "test:db": "cross-env NODE_ENV=test node scripts/prisma-cli.js migrate deploy && cross-env NODE_ENV=test node scripts/prisma-cli.js db seed",
+    "prisma": "node scripts/prisma-cli.js",
+    "postinstall": "prisma skills sync || exit 0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "bcryptjs": "^3.0.3",
+    "chai": "^6.3.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "csrf-csrf": "^4.0.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^8.7.1",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "mocha": "^10.4.0",
+    "nodemon": "^3.1.0",
+    "prisma": "^5.22.0",
+    "puppeteer-core": "^25.15.0",
+    "supertest": "^6.3.4"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  }
+}

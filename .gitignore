@@ -1,0 +1,74 @@
+# Version control ignores for Wednesday's Dark Chronicles.
+#
+# The project is not yet under version control. This file is prepared so
+# that a repository can be initialised safely: the secrets are excluded
+# BEFORE the first commit, so a real credential is never recorded in the
+# history.
+
+# --- Secrets ---------------------------------------------------------------
+# The live configuration and the dedicated test configuration both carry
+# real credentials. Neither may ever be committed.
+.env
+.env.*
+!.env.example
+
+# --- Dependencies ----------------------------------------------------------
+node_modules/
+.pnp
+.pnp.js
+
+# --- Build output ----------------------------------------------------------
+dist/
+build/
+.cache/
+.next/
+out/
+
+# --- Logs and temporary files ---------------------------------------------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+tmp/
+backend/scripts/tmp/
+
+# --- Database artefacts ----------------------------------------------------
+# A local dump must never reach version control.
+*.sql
+*.dump
+*.backup
+
+# --- Editor and OS ---------------------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# --- Additional local secrets and credentials ---
+.env*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials/
+*_password*.txt
+*password*.txt
+*secret*.txt
+
+# --- Local databases and runtime files ---
+*.sqlite
+*.sqlite3
+*.db
+coverage/
+playwright-report/
+test-results/
+
+# --- Local IDE and agent configuration ---
+.agents/
+.claude/
+.cursor/

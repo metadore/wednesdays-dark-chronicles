@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Entry | The Void</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/reader.css?v=1"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#140029",
+                    "surface-container-highest": "#353535",
+                    "on-secondary-fixed-variant": "#454747",
+                    "on-primary-container": "#7b7979",
+                    "background": "#131313",
+                    "on-primary-fixed-variant": "#474646",
+                    "inverse-primary": "#5f5e5e",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-primary-fixed": "#1c1b1b",
+                    "surface": "#131313",
+                    "on-error-container": "#ffdad6",
+                    "on-surface-variant": "#c4c7c7",
+                    "primary-container": "#0a0a0a",
+                    "surface-container": "#20201f",
+                    "tertiary-fixed-dim": "#ddb7ff",
+                    "secondary-fixed": "#e2e2e2",
+                    "primary-fixed-dim": "#c9c6c5",
+                    "surface-variant": "#353535",
+                    "primary-fixed": "#e5e2e1",
+                    "on-background": "#e5e2e1",
+                    "tertiary-fixed": "#f0dbff",
+                    "surface-tint": "#c9c6c5",
+                    "secondary": "#c6c6c7",
+                    "outline": "#8e9192",
+                    "surface-bright": "#393939",
+                    "inverse-surface": "#e5e2e1",
+                    "on-secondary": "#2f3131",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "on-secondary-container": "#b4b5b5",
+                    "tertiary": "#ddb7ff",
+                    "on-tertiary-fixed-variant": "#622599",
+                    "on-tertiary": "#4a0080",
+                    "on-tertiary-fixed": "#2c0050",
+                    "on-error": "#690005",
+                    "on-tertiary-container": "#985ed0",
+                    "secondary-container": "#454747",
+                    "on-primary": "#313030",
+                    "error-container": "#93000a",
+                    "primary": "#c9c6c5",
+                    "surface-container-low": "#1c1b1b",
+                    "surface-dim": "#131313",
+                    "surface-container-high": "#2a2a2a",
+                    "on-surface": "#e5e2e1",
+                    "inverse-on-surface": "#313030",
+                    "outline-variant": "#444748",
+                    "error": "#ffb4ab"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-gap": "120px",
+                    "container-max": "1120px",
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Libre Caslon Text"],
+                    "headline-md": ["Libre Caslon Text"],
+                    "headline-lg-mobile": ["Libre Caslon Text"],
+                    "label-sm": ["Geist"],
+                    "display-lg": ["Libre Caslon Text"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "38px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                    "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "300"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0A0A0A;
+            color: #e5e2e1;
+            cursor: crosshair;
+        }
+        .grain-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 999;
+        }
+    </style>
+  </head>
+<body class="font-body-md text-body-md selection:bg-primary selection:text-black">
+<div class="grain-overlay"></div>
+<!-- The reading progress indicator. -->
+<div class="reader-progress-bar" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="reader-progress-bar">
+    <div class="reader-progress-fill" id="reader-progress-fill"></div>
+</div>
+<main class="min-h-screen flex flex-col items-center px-margin-mobile md:px-gutter pt-24 pb-section-gap">
+    <div id="post-content" class="reader-column w-full space-y-12">
+        <!-- Loading state -->
+        <div class="text-center py-20">
+            <p class="font-label-sm text-primary uppercase tracking-widest animate-pulse">Consulting the Archive...</p>
+        </div>
+    </div>
+
+    <!-- Reader controls: bookmark, reading settings -->
+    <div class="reader-column w-full flex flex-wrap items-center gap-4 mt-10">
+        <button id="reader-bookmark" class="reader-bookmark-toggle" type="button" aria-pressed="false">
+            <span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+            <span class="reader-bookmark-text">Bookmark</span>
+        </button>
+        <span id="reader-bookmark-status" role="status" aria-live="polite" class="font-label-sm text-label-sm uppercase tracking-widest text-on-primary-container"></span>
+        <div id="reader-settings-host" class="relative ml-auto">
+            <button id="reader-settings-toggle" class="reader-button" type="button" aria-haspopup="dialog">
+                <span class="material-symbols-outlined text-base" data-icon="tune">tune</span>
+                <span class="hidden sm:inline">Reading settings</span>
+            </button>
+        </div>
+    </div>
+    <p id="reader-bookmark-note" class="reader-bookmark-note reader-column w-full">
+        Bookmarks and reading positions are kept in this browser only. They do not synchronize to your
+        other devices, and they are lost if you clear this browser’s data.
+    </p>
+    <p id="reader-bookmark-status-live" class="sr-only" role="status" aria-live="polite"></p>
+
+    <!-- Reading progress status -->
+    <div id="reader-progress-status" class="reader-progress-status reader-column w-full mt-8" hidden>
+        <span id="reader-progress-label" class="reader-progress-label">0% read</span>
+        <span>Your place in this entry is remembered in this browser.</span>
+        <button id="reader-progress-reset" class="reader-progress-reset" type="button">Reset position</button>
+    </div>
+
+    <!-- The saved-data management panel -->
+    <section id="reader-data-panel" class="reader-data-panel reader-column w-full"></section>
+
+                <section class="mt-24 border-t border-white/10 pt-12">
+                    <h3 class="font-headline-md text-headline-md mb-8 text-primary">The Séance</h3>
+                    <div id="comments-list" class="space-y-8 mb-12">
+                        <!-- Comments will be injected here -->
+                    </div>
+                    <div class="bg-surface-container-lowest p-6 border border-white/10">
+                        <h4 class="font-label-sm text-label-sm uppercase tracking-widest mb-4 text-on-primary-container">Cast your voice into the void</h4>
+                        <form id="form-comment" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <label for="comment-author" class="sr-only font-label-sm uppercase tracking-widest text-on-primary-container/60">Your name</label>
+                                <input type="text" id="comment-author" name="author" placeholder="Your Name" class="bg-transparent border-b border-white/20 py-2 focus:border-primary outline-none text-white" required>
+                                <input type="hidden" name="postId" id="comment-post-id">
+                                <input type="hidden" name="parentId" id="comment-parent-id" value="">
+                            </div>
+                            <label for="comment-content" class="sr-only font-label-sm uppercase tracking-widest text-on-primary-container/60">Your message</label>
+                            <textarea id="comment-content" name="content" placeholder="Your message..." class="w-full bg-transparent border-b border-white/20 py-2 focus:border-primary outline-none text-white h-24 resize-none" required></textarea>
+                            <button type="submit" class="px-6 py-2 border border-white text-label-sm uppercase tracking-widest hover:bg-white hover:text-black transition-all">Submit to Void</button>
+                        </form>
+                        <div id="comment-status" class="mt-4 text-xs uppercase tracking-widest opacity-70"></div>
+                    </div>
+                </section>
+
+<div class="mt-24 pb-24">
+        <a href="grim_chronicles/code.html" class="font-label-sm text-primary uppercase tracking-widest hover:text-white transition-colors flex items-center gap-2">
+            <span class="material-symbols-outlined">arrow_back</span> Return to Chronicles
+        </a>
+    </div>
+</main>
+<script src="/reader-config.js?v=1"></script>
+<script src="/reader-data.js?v=1"></script>
+<script src="/reader-ui.js?v=1"></script>
+<script>
+    // The API base: the same origin when the site is served with the API
+    // proxy, and the configured origin otherwise. It is resolved by
+    // reader-config.js, which falls back to the same origin so a production
+    // deployment never talks to a development API.
+    const API_BASE_URL = (window.ReaderConfig && window.ReaderConfig.apiBase)
+        || window.__API_BASE__
+        || '/api';
+
+    /**
+     * Build a DOM node.
+     *
+     * Everything that comes from the API is written with textContent, never
+     * interpolated into innerHTML, so a stored title or body can never
+     * become markup.
+     */
+    const el = (tag, className, text) => {
+        const node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text !== undefined && text !== null) node.textContent = String(text);
+        return node;
+    };
+
+    /** Only http(s) and data:image sources are loaded; anything else is dropped. */
+    const safeImageUrl = (url) => {
+        if (typeof url !== 'string' || !url.trim()) return null;
+        const trimmed = url.trim();
+        if (/^(https?:)?\/\//i.test(trimmed) || /^data:image\//i.test(trimmed)) {
+            return trimmed.replace(/"/g, '%22');
+        }
+        return null;
+    };
+
+    /**
+     * The promise that resolves once the article has been rendered, so the
+     * progress tracker can measure and restore against the real content.
+     */
+    let postRendered = null;
+
+    async function loadPost() {
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get('slug');
+        const contentDiv = document.getElementById('post-content');
+
+        if (!slug) {
+            contentDiv.textContent = '';
+            const box = el('div', 'text-center py-20');
+            box.appendChild(el('h1', 'font-headline-lg text-headline-lg text-primary', 'Lost in the Void'));
+            box.appendChild(el('p', 'text-on-primary-container mt-4', 'No slug provided.'));
+            contentDiv.appendChild(box);
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/posts/${slug}`);
+            if (response.status === 404) {
+                contentDiv.textContent = '';
+                const box = el('div', 'text-center py-20');
+                box.appendChild(el('h1', 'font-headline-lg text-headline-lg text-primary', 'Forbidden Entry'));
+                box.appendChild(el('p', 'text-on-primary-container mt-4', 'This chronicle has been erased or remains hidden.'));
+                contentDiv.appendChild(box);
+                return;
+            }
+            if (!response.ok) throw new Error('Failed to fetch post');
+
+            const post = await response.json();
+
+            const dateStr = post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'Unknown Date';
+
+            contentDiv.textContent = '';
+
+            // --- Header ---
+            const header = el('header', 'text-center mb-16');
+            header.appendChild(el('span', 'font-label-sm text-label-sm text-primary mb-4 block uppercase', dateStr));
+            header.appendChild(el('h1', 'font-display-lg text-display-lg mb-6 tracking-tight', post.title));
+
+            const chips = el('div', 'flex justify-center gap-2 flex-wrap');
+            (post.categories || []).forEach((pc) => {
+                if (!pc.category) return;
+                chips.appendChild(
+                    el('span', 'text-xs uppercase tracking-widest px-2 py-1 border border-white/10 text-on-primary-container', pc.category.name)
+                );
+            });
+            header.appendChild(chips);
+            contentDiv.appendChild(header);
+
+            // --- Cover image ---
+            const cover = el('div', 'relative aspect-video overflow-hidden border border-white/10 mb-12');
+            const image = document.createElement('img');
+            image.className = 'w-full h-full object-cover grayscale contrast-125 opacity-80';
+            image.alt = post.title || '';
+            const coverSrc = safeImageUrl(post.coverImageUrl);
+            if (coverSrc) {
+                image.src = coverSrc;
+            } else {
+                // No usable image: show a placeholder rather than a broken image.
+                const placeholder = el('div', 'w-full h-full bg-[#0e0e0e] flex items-center justify-center');
+                const icon = el('span', 'material-symbols-outlined text-4xl text-on-primary-container/30', 'image_not_supported');
+                placeholder.appendChild(icon);
+                cover.appendChild(placeholder);
+            }
+            if (coverSrc) cover.appendChild(image);
+            contentDiv.appendChild(cover);
+
+            // --- Body ---
+            //
+            // The body is the author's text. It is written with textContent
+            // and keeps its line breaks, so a stored paragraph can never
+            // inject markup into the page.
+            const body = el('div', 'prose prose-invert max-w-none');
+            const text = el('div', 'font-body-lg text-body-lg text-on-surface leading-relaxed space-y-6 whitespace-pre-wrap reader-text');
+            text.textContent = post.content || '';
+            body.appendChild(text);
+            contentDiv.appendChild(body);
+
+            // --- The reading features ---
+            setupReaderFeatures(slug);
+        } catch (error) {
+            console.error('Error loading post:', error);
+            contentDiv.textContent = '';
+            const box = el('div', 'text-center py-20');
+            box.appendChild(el('h1', 'font-headline-lg text-headline-lg text-primary', 'Connection Severed'));
+            box.appendChild(el('p', 'text-on-primary-container mt-4', 'The archive is currently inaccessible.'));
+            contentDiv.appendChild(box);
+        }
+    }
+
+    /**
+     * Wire the bookmark button, the reading-progress tracker, the reading
+     * settings and the saved-data panel onto the article page.
+     */
+    function setupReaderFeatures(slug) {
+        // Apply the stored preferences before anything is measured, so the
+        // progress tracker measures the article as the reader will see it.
+        ReaderData.applyPreferences(document);
+
+        ReaderUI.initSettingsPanel({
+            toggleButton: document.getElementById('reader-settings-toggle'),
+            host: document.getElementById('reader-settings-host'),
+        });
+
+        ReaderUI.initBookmarkButton({
+            slug: slug,
+            button: document.getElementById('reader-bookmark'),
+            status: document.getElementById('reader-bookmark-status'),
+        });
+
+        ReaderUI.initProgressTracker({
+            slug: slug,
+            article: document.getElementById('post-content'),
+            fill: document.getElementById('reader-progress-fill'),
+            label: document.getElementById('reader-progress-label'),
+            status: document.getElementById('reader-progress-status'),
+            resetButton: document.getElementById('reader-progress-reset'),
+            onReset: () => {
+                const bar = document.getElementById('reader-progress-bar');
+                if (bar) bar.setAttribute('aria-valuenow', '0');
+            },
+        });
+
+        ReaderUI.initDataPanel({
+            container: document.getElementById('reader-data-panel'),
+            onChange: (what) => {
+                if (what === 'progress' || what === 'all') {
+                    const fill = document.getElementById('reader-progress-fill');
+                    const label = document.getElementById('reader-progress-label');
+                    const status = document.getElementById('reader-progress-status');
+                    if (fill) fill.style.width = '0%';
+                    if (label) label.textContent = '0% read';
+                    if (status) status.hidden = true;
+                }
+            },
+        });
+    }
+
+    loadPost().then(() => loadComments());
+
+    async function loadComments() {
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get('slug');
+        const list = document.getElementById('comments-list');
+        
+        try {
+            // We need the post ID first
+            const postRes = await fetch(`${API_BASE_URL}/posts/${slug}`);
+            if (!postRes.ok) throw new Error('Post not found');
+            const post = await postRes.json();
+            document.getElementById('comment-post-id').value = post.id;
+
+            const res = await fetch(`${API_BASE_URL}/comments/${post.id}`);
+            const comments = await res.json();
+
+            if (!Array.isArray(comments) || comments.length === 0) {
+                list.innerHTML = `<p class="text-center py-10 text-on-primary-container italic opacity-50">The séance is silent. Be the first to speak.</p>`;
+                return;
+            }
+
+            const renderComment = (comment, depth = 0) => {
+                return `
+                <div class="flex flex-col gap-2 ${depth > 0 ? 'ml-8 border-l border-white/10 pl-4' : ''}" style="margin-top: ${depth > 0 ? '1rem' : '0'}">
+                    <div class="flex justify-between items-center">
+                        <span class="font-label-sm text-primary uppercase tracking-widest">${escapeHtml(comment.author)}</span>
+                        <span class="text-[10px] opacity-40">${new Date(comment.createdAt).toLocaleDateString()}</span>
+                    </div>
+                    <p class="text-on-surface-variant italic mb-2">${escapeHtml(comment.content)}</p>
+                    <button onclick="setupReply('${comment.id}')" class="text-[10px] uppercase tracking-tighter text-on-primary-container hover:text-primary transition-colors">Reply</button>
+                    <div class="replies-container">${comment.replies ? comment.replies.map(r => renderComment(r, depth + 1)).join('') : ''}</div>
+                </div>
+                `;
+            };
+
+            list.innerHTML = comments.map(c => renderComment(c)).join('');
+        } catch (e) {
+            list.innerHTML = `<p class="text-center py-10 text-error-container">The séance was interrupted. Try again.</p>`;
+        }
+    }
+
+    function setupReply(parentId) {
+        document.getElementById('comment-parent-id').value = parentId;
+        document.getElementById('form-comment').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('form-comment').querySelector('input[name="author"]').focus();
+    }
+
+    document.getElementById('form-comment').onsubmit = async (e) => {
+        e.preventDefault();
+        const status = document.getElementById('comment-status');
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData);
+
+        // A reply to a hidden (pending) parent would be orphaned, so only allow
+        // replying to a comment that the visitor can actually see.
+        if (data.parentId) {
+            const visible = await isVisibleComment(data.postId, data.parentId);
+            if (!visible) {
+                status.textContent = 'That voice is no longer available to reply to.';
+                status.className = 'mt-4 text-xs uppercase tracking-widest text-error-container';
+                return;
+            }
+        }
+
+        try {
+            // The comment endpoint is CSRF protected: fetch a token for this session first.
+            const csrfRes = await fetch(`${API_BASE_URL}/auth/csrf-token`, { credentials: 'include' });
+            if (!csrfRes.ok) throw new Error('Could not establish a secure session.');
+            const { token } = await csrfRes.json();
+
+            const res = await fetch(`${API_BASE_URL}/comments`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-csrf-token': token,
+                },
+                credentials: 'include',
+                body: JSON.stringify(data),
+            });
+            const result = await res.json().catch(() => ({}));
+
+            if (res.ok) {
+                status.textContent = result.message;
+                status.className = 'mt-4 text-xs uppercase tracking-widest text-primary';
+                e.target.reset();
+                document.getElementById('comment-parent-id').value = '';
+                loadComments();
+            } else {
+                throw new Error(result.error || 'The void rejected your voice.');
+            }
+        } catch (e) {
+            status.textContent = e.message;
+            status.className = 'mt-4 text-xs uppercase tracking-widest text-error-container';
+        }
+    };
+
+    // Confirms the parent comment is part of the publicly visible thread.
+    async function isVisibleComment(postId, parentId) {
+        const res = await fetch(`${API_BASE_URL}/comments/${postId}`);
+        if (!res.ok) return false;
+        const comments = await res.json();
+        if (!Array.isArray(comments)) return false;
+        const find = (nodes) => {
+            for (const n of nodes || []) {
+                if (n.id === parentId) return true;
+                if (find(n.replies)) return true;
+            }
+            return false;
+        };
+        return find(comments);
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+</script>
+</body></html>

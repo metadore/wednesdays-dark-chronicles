@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reader | The Void</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="/reader-config.js?v=1"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "tertiary-container": "#140029",
+                    "surface-container-highest": "#353535",
+                    "on-secondary-fixed-variant": "#454747",
+                    "on-primary-container": "#7b7979",
+                    "background": "#131313",
+                    "on-primary-fixed-variant": "#474646",
+                    "inverse-primary": "#5f5e5e",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-primary-fixed": "#1c1b1b",
+                    "surface": "#131313",
+                    "on-error-container": "#ffdad6",
+                    "on-surface-variant": "#c4c7c7",
+                    "primary-container": "#0a0a0a",
+                    "surface-container": "#20201f",
+                    "tertiary-fixed-dim": "#ddb7ff",
+                    "secondary-fixed": "#e2e2e2",
+                    "primary-fixed-dim": "#c9c6c5",
+                    "surface-variant": "#353535",
+                    "surface-bright": "#393939",
+                    "inverse-surface": "#e5e2e1",
+                    "on-secondary": "#2f3131",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "on-secondary-container": "#b4b5b5",
+                    "tertiary": "#ddb7ff",
+                    "on-tertiary-fixed-variant": "#622599",
+                    "on-tertiary": "#4a0080",
+                    "on-tertiary-container": "#985ed0",
+                    "secondary-container": "#454747",
+                    "on-primary": "#313030",
+                    "error-container": "#93000a",
+                    "primary": "#c9c6c5",
+                    "surface-container-low": "#1c1b1b",
+                    "surface-dim": "#131313",
+                    "surface-container-high": "#2a2a2a",
+                    "on-surface": "#e5e2e1",
+                    "inverse-on-surface": "#313030",
+                    "outline-variant": "#444748",
+                    "error": "#ffb4ab",
+                    "burgundy": "#4b0d0d",
+                    "burgundy-bright": "#a31616"
+                },
+                "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+                },
+                "spacing": {
+                    "section-gap": "120px",
+                    "container-max": "1120px",
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "margin-mobile": "20px"
+                },
+                "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Libre Caslon Text"],
+                    "headline-md": ["Libre Caslon Text"],
+                    "headline-lg-mobile": ["Libre Caslon Text"],
+                    "label-sm": ["Geist Mono"],
+                    "display-lg": ["Libre Caslon Text"],
+                    "body-lg": ["Inter"]
+                },
+                "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "38px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                    "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "300"}]
+                }
+            }
+        }
+    }
+</script>
+<style>
+    body {
+        background-color: #0A0A0A;
+        color: #e5e2e1;
+        cursor: crosshair;
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .grain-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+        opacity: 0.03;
+        pointer-events: none;
+        z-index: 999;
+        /* Never let the overlay widen the page on a narrow screen. */
+        max-width: 100vw;
+    }
+    .choice-button {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: #0e0e0e;
+        text-align: left;
+        transition: all 0.25s ease;
+        width: 100%;
+    }
+    .choice-button:hover {
+        border-color: #a31616;
+        background: #1c1b1b;
+        box-shadow: 6px 6px 0 0 #4b0d0d;
+    }
+    .choice-button:focus-visible,
+    .reader-control:focus-visible,
+    a:focus-visible {
+        outline: 2px solid #a31616;
+        outline-offset: 3px;
+    }
+    .reader-control {
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        transition: all 0.25s ease;
+    }
+    .reader-control:hover:not(:disabled) {
+        border-color: rgba(255, 255, 255, 0.4);
+        background: #1c1b1b;
+    }
+    .reader-control:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+    .path-step {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.2s ease;
+    }
+    .path-step:hover:not(:disabled) {
+        border-color: #a31616;
+    }
+    .path-step:disabled {
+        cursor: default;
+    }
+    .narrative-text {
+        white-space: pre-wrap;
+    }
+    .ending-banner {
+        border: 1px solid #a31616;
+        background: #1a0d0d;
+    }
+    /*
+     * Long, unbreakable strings (a section heading, a path label) must not
+     * push the page wider than the viewport on a phone.
+     */
+    #node-title, #node-content, #story-title, #story-description {
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+    #node-eyebrow, #node-depth, #path-counter {
+        min-width: 0;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .choice-button, .reader-control, .path-step { transition: none; }
+        .choice-button:hover { box-shadow: none; }
+        * { animation-duration: 0.001ms !important; }
+    }
+</style>
+</head>
+<body class="font-body-md text-body-md selection:bg-primary selection:text-black">
+<div class="grain-overlay"></div>
+
+<!-- Top AppBar -->
+<header class="bg-background w-full top-0 sticky border-b border-white/10 z-50">
+    <div class="flex justify-between items-center px-margin-mobile md:px-gutter h-16 w-full max-w-container-max mx-auto">
+        <a href="/branching_stories/code.html" class="hover:text-white transition-colors p-2 flex items-center" aria-label="Back to the story listing">
+            <span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+        </a>
+        <div id="story-heading" class="font-headline-lg text-headline-lg-mobile md:text-headline-lg tracking-tighter text-on-background truncate">
+            BRANCHING STORIES
+        </div>
+        <button id="btn-restart" class="reader-control px-3 py-2 font-label-sm text-label-sm uppercase tracking-widest text-primary hover:text-white transition-colors" type="button">
+            Restart
+        </button>
+    </div>
+</header>
+
+<main class="max-w-3xl w-full mx-auto px-margin-mobile md:px-gutter pt-16 pb-section-gap">
+    <!-- Story introduction -->
+    <header id="story-intro" class="mb-16 text-center hidden">
+        <span class="font-label-sm text-label-sm text-burgundy-bright uppercase tracking-widest mb-4 block">An Interactive Chronicle</span>
+        <h1 id="story-title" class="font-display-lg text-display-lg mb-6 tracking-tight"></h1>
+        <p id="story-description" class="font-body-lg text-body-lg text-on-primary-container max-w-2xl mx-auto leading-relaxed"></p>
+        <div class="w-px h-16 bg-gradient-to-b from-transparent via-burgundy/60 to-transparent mx-auto mt-10"></div>
+    </header>
+
+    <!-- The narrative panel -->
+    <section id="reader" class="min-h-[40vh]" aria-live="polite">
+        <!-- Loading -->
+        <div id="reader-loading" class="text-center py-20">
+            <p class="font-label-sm text-primary uppercase tracking-widest animate-pulse">Opening the corridor...</p>
+        </div>
+        <!-- Error -->
+        <div id="reader-error" class="text-center py-20 hidden">
+            <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-burgundy-bright mb-4">The Passage Is Sealed</h2>
+            <p id="reader-error-text" class="text-on-primary-container">This part of the story cannot be reached.</p>
+            <button id="btn-error-back" class="reader-control mt-8 px-6 py-3 font-label-sm text-label-sm uppercase tracking-widest text-primary hover:text-white transition-colors" type="button">
+                Return to the Stories
+            </button>
+        </div>
+        <!-- Node -->
+        <article id="node-panel" class="hidden">
+            <div class="mb-4 flex items-center justify-between gap-4 flex-wrap">
+                <span id="node-eyebrow" class="font-label-sm text-label-sm text-on-primary-container uppercase tracking-widest truncate min-w-0"></span>
+                <span id="node-depth" class="font-label-sm text-label-sm text-on-primary-container/60 uppercase tracking-widest shrink-0"></span>
+            </div>
+
+            <h2 id="node-title" class="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-6"></h2>
+
+            <div id="node-content" class="narrative-text font-body-lg text-body-lg text-on-surface leading-relaxed mb-12"></div>
+
+            <!-- Ending presentation -->
+            <div id="ending-panel" class="ending-banner p-8 mb-12 hidden">
+                <span class="font-label-sm text-label-sm text-burgundy-bright uppercase tracking-widest mb-3 block">The Path Concludes</span>
+                <h3 class="font-headline-md text-headline-md mb-3">You have reached an ending</h3>
+                <p class="text-on-surface-variant">This is where your path through the story comes to rest. You may return to any section you have already read, or begin again.</p>
+            </div>
+
+            <!-- Choices -->
+            <div id="choices-block" class="mb-12">
+                <h3 id="choices-heading" class="font-label-sm text-label-sm uppercase tracking-widest text-on-primary-container mb-4">What do you do?</h3>
+                <div id="choices-list" class="space-y-4"></div>
+            </div>
+
+            <!-- Reader controls -->
+            <div class="pt-8 border-t border-white/5 flex flex-wrap items-center gap-4">
+                <button id="btn-back" class="reader-control px-5 py-3 font-label-sm text-label-sm uppercase tracking-widest text-primary hover:text-white transition-colors" type="button">
+                    <span class="material-symbols-outlined align-middle" data-icon="arrow_back">arrow_back</span>
+                    Back
+                </button>
+                <button id="btn-restart-2" class="reader-control px-5 py-3 font-label-sm text-label-sm uppercase tracking-widest text-primary hover:text-white transition-colors" type="button">
+                    <span class="material-symbols-outlined align-middle" data-icon="restart_alt">restart_alt</span>
+                    Restart the Story
+                </button>
+                <span id="path-counter" class="font-label-sm text-label-sm text-on-primary-container/60 uppercase tracking-widest ml-auto"></span>
+            </div>
+        </article>
+    </section>
+
+    <!-- The path walked so far -->
+    <section id="path-panel" class="mt-24 hidden" aria-labelledby="path-heading">
+        <h2 id="path-heading" class="font-label-sm text-label-sm uppercase tracking-widest text-on-primary-container mb-6">The Path You Have Walked</h2>
+        <ol id="path-list" class="space-y-2"></ol>
+        <p class="text-on-primary-container/60 text-xs mt-6 leading-relaxed">
+            This path is kept only in this browser. It is not sent to the server and does not follow you to another device.
+        </p>
+    </section>
+</main>
+
+<script src="/reader-data.js?v=1"></script>
+<script>
+    const API_BASE = (window.ReaderConfig && window.ReaderConfig.apiBase)
+        || window.__API_BASE__
+        || '/api';
+
+    /**
+     * The reading path is kept in the browser's local storage, keyed by
+     * story slug.
+     *
+     * It records the sequence of nodes the reader has visited and the label
+     * of the choice taken at each step, so the reader can see how they got
+     * here and step back to any point.
+     *
+     * The storage itself is owned by reader-data.js, which validates
+     * everything it reads and never throws. The key format is unchanged
+     * from Phase 9A, so a path saved before this change is still found.
+     */
+    const State = {
+        slug: null,
+        story: null,
+        // The ordered list of visited nodes: { nodeId, title, viaLabel }
+        path: [],
+        // Index of the node currently displayed inside `path`.
+        cursor: 0,
+    };
+
+    /** Read the stored path for a story, discarding anything malformed. */
+    function loadPath(slug) {
+        return ReaderData.getStoryPath(slug);
+    }
+
+    /** Persist the path, ignoring storage failures. */
+    function savePath() {
+        ReaderData.setStoryPath(State.slug, State.path);
+    }
+
+    function clearPath() {
+        ReaderData.clearStoryPath(State.slug);
+    }
+
+    /**
+     * Validate a restored path against the story the server just returned.
+     * A path that references nodes this story does not contain is discarded,
+     * because the story may have been rewritten since it was saved.
+     */
+    function validatePathAgainstStory(path, story) {
+        if (!path.length) return [];
+        const known = new Set((story.nodes || []).map((n) => n.id));
+        return path.filter((entry) => known.has(entry.nodeId));
+    }
+
+    const el = (id) => document.getElementById(id);
+
+    function setState(state) {
+        el('reader-loading').classList.add('hidden');
+        el('reader-error').classList.add('hidden');
+        el('node-panel').classList.add('hidden');
+        el('story-intro').classList.add('hidden');
+        el('path-panel').classList.add('hidden');
+
+        if (state === 'loading') {
+            el('reader-loading').classList.remove('hidden');
+        } else if (state === 'error') {
+            el('reader-error').classList.remove('hidden');
+        } else if (state === 'intro') {
+            el('story-intro').classList.remove('hidden');
+        } else if (state === 'node') {
+            el('node-panel').classList.remove('hidden');
+            el('path-panel').classList.remove('hidden');
+        }
+    }
+
+    function showError(message) {
+        el('reader-error-text').textContent = message
+            || 'This part of the story cannot be reached.';
+        setState('error');
+    }
+
+    /** Render the ordered path the reader has walked. */
+    function renderPath() {
+        const list = el('path-list');
+        list.textContent = '';
+
+        State.path.forEach((entry, index) => {
+            const li = document.createElement('li');
+
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'path-step w-full px-4 py-3 flex items-center gap-4 text-left';
+            button.disabled = index === State.cursor;
+            button.setAttribute(
+                'aria-label',
+                index === State.cursor
+                    ? `Current section: ${entry.title || 'Untitled section'}`
+                    : `Return to section ${index + 1}: ${entry.title || 'Untitled section'}`
+            );
+
+            const num = document.createElement('span');
+            num.className = 'font-label-sm text-label-sm text-burgundy-bright uppercase tracking-widest shrink-0';
+            num.textContent = String(index + 1).padStart(2, '0');
+            button.appendChild(num);
+
+            const label = document.createElement('span');
+            label.className = 'font-body-md text-body-md text-on-surface-variant truncate';
+            label.textContent = entry.title || 'Untitled section';
+            button.appendChild(label);
+
+            if (entry.viaLabel) {
+                const via = document.createElement('span');
+                via.className = 'font-label-sm text-label-sm text-on-primary-container/60 uppercase tracking-widest ml-auto shrink-0 truncate';
+                via.textContent = `via “${entry.viaLabel}”`;
+                button.appendChild(via);
+            }
+
+            button.onclick = () => { goToPathIndex(index); };
+            li.appendChild(button);
+            list.appendChild(li);
+        });
+
+        el('path-counter').textContent = State.path.length > 1
+            ? `Section ${State.cursor + 1} of ${State.path.length}`
+            : '';
+    }
+
+    /** Render the node the reader is currently on. */
+    function renderNode(node, choices) {
+        el('node-title').textContent = node.title || '';
+        el('node-title').classList.toggle('hidden', !node.title);
+
+        el('node-content').textContent = node.content || '';
+
+        el('node-eyebrow').textContent = State.story.title || '';
+        el('node-depth').textContent = State.path.length > 1
+            ? `Section ${State.cursor + 1} of ${State.path.length}`
+            : 'Beginning';
+
+        // An ending is presented distinctly and offers no choices.
+        if (node.isEnding) {
+            el('ending-panel').classList.remove('hidden');
+            el('choices-block').classList.add('hidden');
+        } else {
+            el('ending-panel').classList.add('hidden');
+            el('choices-block').classList.toggle('hidden', !choices.length);
+        }
+
+        const list = el('choices-list');
+        list.textContent = '';
+
+        (choices || []).forEach((choice) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'choice-button px-5 py-4 flex items-center gap-4 font-body-md text-body-md text-on-surface';
+            button.setAttribute('aria-label', `Choose: ${choice.label}`);
+
+            const marker = document.createElement('span');
+            marker.className = 'material-symbols-outlined text-burgundy-bright shrink-0';
+            marker.setAttribute('data-icon', 'east');
+            marker.textContent = 'east';
+            button.appendChild(marker);
+
+            const label = document.createElement('span');
+            label.className = 'flex-1';
+            label.textContent = choice.label;
+            button.appendChild(label);
+
+            button.onclick = () => { takeChoice(choice); };
+            list.appendChild(button);
+        });
+
+        el('btn-back').disabled = State.cursor <= 0;
+
+        renderPath();
+        setState('node');
+    }
+
+    /** Move to a node already on the recorded path. */
+    function goToPathIndex(index) {
+        if (index < 0 || index >= State.path.length) return;
+        State.cursor = index;
+        const entry = State.path[index];
+
+        const node = (State.story.nodes || []).find((n) => n.id === entry.nodeId);
+        if (!node) {
+            // The saved path is no longer valid for this story.
+            State.path = [];
+            State.cursor = 0;
+            clearPath();
+            startStory();
+            return;
+        }
+
+        const choices = (State.story.choicesByNode && State.story.choicesByNode[node.id]) || [];
+        renderNode(node, choices);
+    }
+
+    /** Follow a choice. The reader decides; nothing advances automatically. */
+    async function takeChoice(choice) {
+        const current = State.path[State.cursor];
+        if (!current) return;
+
+        setState('loading');
+        try {
+            const res = await fetch(
+                `${API_BASE}/stories/${encodeURIComponent(State.slug)}/nodes/${encodeURIComponent(current.nodeId)}/choices/${encodeURIComponent(choice.id)}`
+            );
+
+            if (res.status === 404) {
+                showError('That path has been closed. The story may have been rewritten.');
+                return;
+            }
+            if (!res.ok) throw new Error('Choice failed');
+
+            const data = await res.json();
+
+            // Record the step, replacing anything that was ahead of the cursor
+            // (the reader may have stepped back and chosen differently).
+            State.path = State.path.slice(0, State.cursor + 1);
+            State.path.push({
+                nodeId: data.node.id,
+                title: data.node.title || '',
+                viaLabel: choice.label,
+            });
+            State.cursor = State.path.length - 1;
+            savePath();
+
+            renderNode(data.node, data.choices || []);
+        } catch (error) {
+            console.error('Choice failed', error);
+            showError('The corridor resisted. That choice could not be followed.');
+        }
+    }
+
+    /** Go back one step along the path. */
+    function goBack() {
+        if (State.cursor <= 0) return;
+        goToPathIndex(State.cursor - 1);
+    }
+
+    /** Begin the story again from the first node. */
+    function restartStory() {
+        State.path = [];
+        State.cursor = 0;
+        clearPath();
+        startStory();
+    }
+
+    /** Load the story and render the opening section. */
+    async function startStory() {
+        setState('loading');
+        try {
+            const res = await fetch(`${API_BASE}/stories/${encodeURIComponent(State.slug)}`);
+            if (res.status === 404) {
+                showError('This story does not exist or has not been published.');
+                return;
+            }
+            if (!res.ok) throw new Error('Story load failed');
+
+            const story = await res.json();
+            State.story = story;
+
+            el('story-heading').textContent = story.title || 'BRANCHING STORIES';
+            el('story-title').textContent = story.title || '';
+            el('story-description').textContent = story.introduction || '';
+
+            // Restore a previously saved path, but only if it still matches
+            // the story the server returned.
+            const restored = validatePathAgainstStory(loadPath(State.slug), story);
+            if (restored.length) {
+                State.path = restored;
+                State.cursor = restored.length - 1;
+                savePath();
+
+                const entry = State.path[State.cursor];
+                const node = (story.nodes || []).find((n) => n.id === entry.nodeId);
+                if (node) {
+                    const choices = (story.choicesByNode && story.choicesByNode[node.id]) || [];
+                    renderNode(node, choices);
+                    return;
+                }
+            }
+
+            if (!story.startNode) {
+                showError('This story has no opening section yet.');
+                return;
+            }
+
+            // A fresh beginning.
+            State.path = [{
+                nodeId: story.startNode.id,
+                title: story.startNode.title || '',
+                viaLabel: null,
+            }];
+            State.cursor = 0;
+            savePath();
+
+            const choices = (story.choicesByNode && story.choicesByNode[story.startNode.id]) || [];
+            renderNode(story.startNode, choices);
+        } catch (error) {
+            console.error('Story load failed', error);
+            showError('The archive is currently inaccessible.');
+        }
+    }
+
+    // --- Wiring ------------------------------------------------------------
+
+    el('btn-back').onclick = goBack;
+    el('btn-restart').onclick = restartStory;
+    el('btn-restart-2').onclick = restartStory;
+    el('btn-error-back').onclick = () => {
+        window.location.href = '/branching_stories/code.html';
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get('slug');
+        if (!slug) {
+            showError('No story was specified.');
+            return;
+        }
+        State.slug = slug;
+        startStory();
+    });
+</script>
+</body>
+</html>

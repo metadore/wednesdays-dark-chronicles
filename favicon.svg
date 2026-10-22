@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Wednesday's Dark Chronicles">
+  <rect width="64" height="64" fill="#0a0a0a"/>
+  <rect x="4" y="4" width="56" height="56" fill="none" stroke="#5c1a26" stroke-width="2"/>
+  <path d="M32 14 L46 50 H38.5 L32 31 L25.5 50 H18 Z" fill="#7a1f2e"/>
+  <rect x="26" y="40" width="12" height="2.5" fill="#c9c6c5"/>
+</svg>

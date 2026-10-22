@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>THE VOID | Chronicles of the Morbid &amp; Mundane</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #0A0A0A;
+            color: #e5e2e1;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #c9c6c5;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #c9c6c5 } }
+        
+        .hard-shadow {
+            box-shadow: 8px 8px 0px 0px #000000;
+        }
+        .artifact-border {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#140029",
+                      "surface-container-highest": "#353535",
+                      "on-secondary-fixed-variant": "#454747",
+                      "on-primary-container": "#7b7979",
+                      "background": "#131313",
+                      "on-primary-fixed-variant": "#474646",
+                      "inverse-primary": "#5f5e5e",
+                      "secondary-fixed-dim": "#c6c6c7",
+                      "surface-container-lowest": "#0e0e0e",
+                      "on-primary-fixed": "#1c1b1b",
+                      "surface": "#131313",
+                      "on-error-container": "#ffdad6",
+                      "on-surface-variant": "#c4c7c7",
+                      "primary-container": "#0a0a0a",
+                      "surface-container": "#20201f",
+                      "tertiary-fixed-dim": "#ddb7ff",
+                      "secondary-fixed": "#e2e2e2",
+                      "primary-fixed-dim": "#c9c6c5",
+                      "surface-variant": "#353535",
+                      "primary-fixed": "#e5e2e1",
+                      "on-background": "#e5e2e1",
+                      "tertiary-fixed": "#f0dbff",
+                      "surface-tint": "#c9c6c5",
+                      "secondary": "#c6c6c7",
+                      "outline": "#8e9192",
+                      "surface-bright": "#393939",
+                      "inverse-surface": "#e5e2e1",
+                      "on-secondary": "#2f3131",
+                      "on-secondary-fixed": "#1a1c1c",
+                      "on-secondary-container": "#b4b5b5",
+                      "tertiary": "#ddb7ff",
+                      "on-tertiary-fixed-variant": "#622599",
+                      "on-tertiary": "#4a0080",
+                      "on-tertiary-fixed": "#2c0050",
+                      "on-error": "#690005",
+                      "on-tertiary-container": "#985ed0",
+                      "secondary-container": "#454747",
+                      "on-primary": "#313030",
+                      "error-container": "#93000a",
+                      "primary": "#c9c6c5",
+                      "surface-container-low": "#1c1b1b",
+                      "surface-dim": "#131313",
+                      "surface-container-high": "#2a2a2a",
+                      "on-surface": "#e5e2e1",
+                      "inverse-on-surface": "#313030",
+                      "outline-variant": "#444748",
+                      "error": "#ffb4ab"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "section-gap": "120px",
+                      "container-max": "1120px",
+                      "unit": "4px",
+                      "gutter": "24px",
+                      "margin-mobile": "20px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "headline-lg": ["Libre Caslon Text"],
+                      "headline-md": ["Libre Caslon Text"],
+                      "headline-lg-mobile": ["Libre Caslon Text"],
+                      "label-sm": ["Geist Mono"],
+                      "display-lg": ["Libre Caslon Text"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "38px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                      "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "300"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- Top Navigation -->
+<header class="bg-background dark:bg-background text-primary dark:text-primary w-full top-0 sticky border-b border-white/10 z-50">
+<div class="flex justify-between items-center px-margin-mobile md:px-gutter h-16 w-full max-w-container-max mx-auto">
+<button class="hover:bg-white/10 hover:text-primary p-2 transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<div class="font-headline-lg text-headline-lg-mobile md:text-headline-lg tracking-tighter text-on-background">THE VOID</div>
+<button class="hover:bg-white/10 hover:text-primary p-2 transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</div>
+</header>
+<!-- Side Drawer (Desktop Only Anchor) -->
+<aside class="hidden lg:flex flex-col p-gutter space-y-8 h-full w-80 fixed left-0 top-0 border-r border-white/20 bg-surface-container-lowest shadow-[8px_0_0_0_#000000] pt-24 z-40">
+<div class="font-headline-md text-headline-md text-primary mb-8 px-2">CHRONICLES</div>
+<nav class="flex flex-col gap-2">
+<a class="bg-white text-black font-bold p-3 flex items-center gap-4 transition-all scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-body-md text-body-md">The Void</span>
+</a>
+<a class="text-on-surface-variant hover:text-white hover:bg-white/5 p-3 flex items-center gap-4 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-body-md text-body-md">Grim Chronicles</span>
+</a>
+<a class="text-on-surface-variant hover:text-white hover:bg-white/5 p-3 flex items-center gap-4 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span class="font-body-md text-body-md">The Vault</span>
+</a>
+<a class="text-on-surface-variant hover:text-white hover:bg-white/5 p-3 flex items-center gap-4 transition-all" href="/branching_stories/code.html">
+<span class="material-symbols-outlined" data-icon="fork_right">fork_right</span>
+<span class="font-body-md text-body-md">Branching Stories</span>
+</a>
+<a class="text-on-surface-variant hover:text-white hover:bg-white/5 p-3 flex items-center gap-4 transition-all" href="/bookmarks/code.html">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+<span class="font-body-md text-body-md">Bookmarks</span>
+</a>
+<a class="text-on-surface-variant hover:text-white hover:bg-white/5 p-3 flex items-center gap-4 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="font-body-md text-body-md">Inquiries</span>
+</a>
+<a class="text-on-surface-variant hover:text-white hover:bg-white/5 p-3 flex items-center gap-4 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="visibility_off">visibility_off</span>
+<span class="font-body-md text-body-md">Solitude</span>
+</a>
+</nav>
+</aside>
+<main class="lg:ml-80">
+<!-- Hero Section -->
+<section class="relative h-[795px] flex items-center justify-center overflow-hidden border-b border-white/5 px-margin-mobile">
+
+<div class="absolute inset-0 z-0 flex justify-center">
+<img alt="" class="h-full object-cover grayscale brightness-50 contrast-125" data-alt="A hauntingly beautiful silhouette of a tall, slender figure in Victorian gothic attire, standing perfectly still against a stark, high-contrast white background. The lighting is dramatic and moody, casting long, sharp shadows that stretch towards the viewer. The overall aesthetic is minimalist, monochromatic, and cold, evoking a sense of refined isolation and intellectual depth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCw_5SsgXxNPBe-LgdG1JuNOJZhM3ekdiLeo7Fn42FXwqVVaU90AtDyhX3RpC42a2ZlVpDjtS78nDzp-fsY1E7bTMAYcG6JoG6u9rlIHGU_goAuSIQdXhVL4m1dJK9erQXPWUmu5F1u2lQjvc4LimqnIC1DKXMSWBlGlsaq0pbn2Le4Uh7gghEviqmqL-95VIh2x0bFKmp36NCUqjxSA2batR1e5ErT90GlD9rNmsxFBovk_aBYahdNhECfmheJdRcUFi8waWWFEhaa"/>
+</div>
+<div class="relative z-10 text-center max-w-2xl">
+<h1 class="font-display-lg text-display-lg mb-4 text-white drop-shadow-2xl">THE VOID</h1>
+<p class="font-headline-md text-headline-md italic text-primary mb-12">Chronicles of the Morbid &amp; Mundane.</p>
+<div class="inline-block border-l border-primary/30 pl-6 py-2 text-left">
+<p class="font-label-sm text-label-sm typewriter text-on-primary-container inline-block">
+                        Life is but a temporary lapse in a permanent state of absence.
+                    </p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4 opacity-70 leading-relaxed max-w-md">
+                        A digital grimoire for those who find solace in the shadows. We explore the aesthetic of decay and the philosophy of the finite.
+                    </p>
+</div>
+</div>
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Descend</span>
+<span class="material-symbols-outlined animate-bounce">expand_more</span>
+</div>
+</section>
+<!-- Recent Shadows Section -->
+<section class="py-section-gap px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+<div class="flex items-center justify-between mb-16 border-b border-white/10 pb-4">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">history_edu</span>
+                    Recent Shadows
+                </h2>
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-primary hover:text-white transition-colors underline decoration-1 underline-offset-8" href="#">All Entries</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Vertical Post Card 1 -->
+<div class="group relative flex flex-col artifact-border p-4 bg-surface-container-lowest hover:shadow-[12px_12px_0_0_#c9c6c5] transition-all duration-500">
+<div class="aspect-[2/3] overflow-hidden mb-6 border border-white/5 relative">
+<img alt="" class="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-110" data-alt="A close-up, high-contrast photograph of a single black raven feather lying on a pristine white marble surface. The lighting is harsh, creating deep black shadows and brilliant highlights that emphasize the intricate texture of the feather's barbs. The composition is minimal and stark, following the monochrome gloom aesthetic of the brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXYGCMjQqCA4Fbz9QTd0PDUCq8Mh65h_pAKJETWyC0MWOOmOR6SEOu3RE_ViNb7dkDt4MvggP46RJT45NyiM55pc72nKjOmOegzIJ_QZ7qggyLjL0KbwJC9DovAC6EpCVK-ZWcLkUGi1fgz_wrMzdp0WR8vITf7xKXTzM3R1Zmro1AS9GDifNgRJt-r2IJKZqNY4HGnFdQJLi8_U5O_Yu5MC6UPb0uQdnxzsDtBjr-0nqa-pczWTjJaMz0bVw2fKFrIigpf7N7fbjP"/>
+<div class="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 font-label-sm text-label-sm border border-white/10">01</div>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md mb-3 group-hover:text-primary transition-colors">The Anatomy of Melancholy</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-3">
+                            A deep dive into the historical perspectives of sorrow and why modern society fears the silence of the soul.
+                        </p>
+</div>
+<div class="pt-4 border-t border-white/5 flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-primary-container">LITERARY DECAY</span>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</div>
+</div>
+<!-- Vertical Post Card 2 -->
+<div class="group relative flex flex-col artifact-border p-4 bg-surface-container-lowest hover:shadow-[12px_12px_0_0_#c9c6c5] transition-all duration-500 mt-0 md:mt-12">
+<div class="aspect-[2/3] overflow-hidden mb-6 border border-white/5 relative">
+<img alt="" class="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-110" data-alt="An architectural shot of a narrow, winding spiral staircase in a dark, gothic cathedral, leading into a void of deep shadow. The stone steps are worn and cold, illuminated only by a faint, ghostly light from an unseen source. The perspective is dizzying and dramatic, emphasizing the verticality and the sense of descending into the unknown." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLbHDNUGBxysOhhvT1ho66QQChi3clCoC82STr1Ji_TFTZoSCMMx0fVXqdjaaHoIXfQ_IOJ5e_9j1Oe-j3-ABo4axRzJSlmGVcQUJcGOY1aSeHetESSEHPotjLffLWw7j7xhTI2677TrZ98R2jiTCJn3NO4J0YEEn9rrVgADapSvd6ma36l8LbJj5i0EuBtlX5zGdGYArEUfNFDzcPM3dpHRS4c5HGDr1CTt2YWOOnZOATFcdB3IGHBvUHoaF7sG5yheDeHFWb7xap"/>
+<div class="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 font-label-sm text-label-sm border border-white/10">02</div>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md mb-3 group-hover:text-primary transition-colors">Architectural Ghosts</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-3">
+                            Exploring abandoned sanitariums and the echoes left behind in the cold stone of mid-century institutions.
+                        </p>
+</div>
+<div class="pt-4 border-t border-white/5 flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-primary-container">VOID SPACES</span>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</div>
+</div>
+<!-- Vertical Post Card 3 -->
+<div class="group relative flex flex-col artifact-border p-4 bg-surface-container-lowest hover:shadow-[12px_12px_0_0_#c9c6c5] transition-all duration-500">
+<div class="aspect-[2/3] overflow-hidden mb-6 border border-white/5 relative">
+<img alt="" class="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-110" data-alt="A minimalist and evocative image of a single glass of dark red wine placed on a black wooden table, illuminated by a single, sharp beam of moonlight. The red of the wine is the only hint of color in an otherwise purely black and white scene. The lighting creates a dramatic rim light on the glass and a long, sharp shadow on the table surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBljNQb0maTh-vGo1hgN3Cp4OZO2JQRonCfuMSYw9P47mdo_QdOhoXfOv2RuZycRrySDiIeNXrJuN0OgoL11qoLV-i8y1JsFdyeiNy3WzyB14UudThF1_3NwIKqU0b_sVM45iRZEW-VtA3LhanSB0QHSFEIZZmuiBWacuCNVDsgASActNn6sBQnhcUGN8pwGVRYNdlM7eDcfNH762rsJv6CLcihXgiqgTjRivwQOsfrrYlxEPn1IwzNiKd-O2qH2o4PzNaaasBZhrDv"/>
+<div class="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 font-label-sm text-label-sm border border-white/10">03</div>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md mb-3 group-hover:text-primary transition-colors">The Poison of Choice</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-3">
+                            A dry examination of fatalism and why we repeatedly choose the path of most resistance.
+                        </p>
+</div>
+<div class="pt-4 border-t border-white/5 flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-primary-container">PHILOSOPHY</span>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Quote / Divider -->
+<section class="py-section-gap flex flex-col items-center text-center px-margin-mobile">
+<div class="w-px h-24 bg-gradient-to-b from-transparent via-primary/30 to-transparent mb-12"></div>
+<span class="material-symbols-outlined text-primary text-4xl mb-8">flare</span>
+<blockquote class="font-headline-lg text-headline-lg-mobile md:text-headline-lg italic max-w-3xl leading-relaxed text-on-surface">
+                "I'm not perky. I'm just very observant of the dark."
+            </blockquote>
+<cite class="mt-8 font-label-sm text-label-sm uppercase tracking-[0.3em] text-primary">— MORTICIA'S KIN</cite>
+<div class="w-px h-24 bg-gradient-to-b from-transparent via-primary/30 to-transparent mt-12"></div>
+</section>
+<!-- Newsletter / Footer-top Section -->
+<section class="bg-surface-container-low py-24 px-margin-mobile border-t border-white/5">
+<div class="max-w-2xl mx-auto text-center">
+<h4 class="font-headline-md text-headline-md mb-6">Join the Abyss.</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-10">Receive weekly chronicles of the macabre directly in your inbox. No fluff. Just gloom.</p>
+<form class="flex flex-col md:flex-row gap-0">
+<input class="flex-1 bg-transparent border-b border-white/20 border-t-0 border-x-0 focus:ring-0 focus:border-primary text-body-md py-4 font-label-sm" placeholder="YOUR EMAIL ADDRESS" type="email"/>
+<button class="bg-primary text-black font-bold px-12 py-4 font-label-sm uppercase tracking-widest hover:bg-white transition-colors duration-300">Subscribe</button>
+</form>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest text-on-primary-container font-label-sm text-label-sm uppercase tracking-widest w-full py-section-gap border-t border-white/5">
+<div class="flex flex-col items-center gap-8 px-margin-mobile text-center max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md text-on-background">THE VOID</div>
+<nav class="flex flex-wrap justify-center gap-x-12 gap-y-4">
+<a class="hover:text-white underline transition-opacity duration-500" href="#">The Abyss</a>
+<a class="hover:text-white underline transition-opacity duration-500" href="#">Terms of Grief</a>
+<a class="hover:text-white underline transition-opacity duration-500" href="#">Privacy Policy</a>
+</nav>
+<div class="mt-8 text-on-primary-container/50">
+                    © MMXIV MORTICIA'S KIN. ALL RIGHTS RESERVED.
+                </div>
+</div>
+</footer>
+</main>
+<!-- Bottom Navigation Bar (Mobile only) -->
+<nav class="flex md:hidden justify-around items-center h-16 z-50 bg-background fixed bottom-0 w-full border-t border-white/10">
+<a class="text-primary scale-110 flex flex-col items-center" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+</a>
+<a class="text-on-primary-container opacity-50 hover:opacity-100 flex flex-col items-center transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+</a>
+<a class="text-on-primary-container opacity-50 hover:opacity-100 flex flex-col items-center transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+</a>
+<a class="text-on-primary-container opacity-50 hover:opacity-100 flex flex-col items-center transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+</a>
+</nav>
+<script>
+        // Custom interaction: Magnetic headers or small aesthetic movements
+        document.addEventListener('mousemove', (e) => {
+            const cursorX = e.clientX;
+            const cursorY = e.clientY;
+            
+            // Subtle parallax effect on the hero image could go here
+            // But keeping it minimal as per the guide
+        });
+
+        // Initialize any micro-interactions
+        const cards = document.querySelectorAll('.artifact-border');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Potential sound effect or haptic feedback logic
+            });
+        });
+    </script>
+</body></html>

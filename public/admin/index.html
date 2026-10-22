@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Grimoire | Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css?v=4">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Login View -->
+        <section id="view-login" class="view">
+            <div class="login-card">
+                <h1>The Grimoire</h1>
+                <p class="subtitle">Administrative Access</p>
+                <form id="form-login">
+                    <div class="field">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Enter the Vault</button>
+                    <div id="login-error" class="error-msg"></div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Main Dashboard View -->
+        <section id="view-dashboard" class="view hidden">
+            <nav class="admin-nav">
+                <div class="nav-brand">The Grimoire</div>
+                <ul class="nav-links">
+                    <li><a href="#" data-link="overview">Overview</a></li>
+                    <li><a href="#" data-link="blog">Blog</a></li>
+                    <li><a href="#" data-link="vault">Vault</a></li>
+                    <li><a href="#" data-link="categories">Categories</a></li>
+                    <li><a href="#" data-link="stories">Stories</a></li>
+                    <li><a href="#" data-link="séance">The Séance</a></li>
+                    <li><a href="#" data-link="messages">Messages</a></li>
+                    <li><a href="#" id="btn-logout" class="btn-logout">Logout</a></li>
+                </ul>
+            </nav>
+
+            <main class="admin-content">
+                <div id="pane-overview" class="pane">
+                    <h2>Sanctum Overview</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-label">Blog Posts</span>
+                            <span id="stat-posts" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-label">Vault Artifacts</span>
+                            <span id="stat-artifacts" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-label">Categories</span>
+                            <span id="stat-categories" class="stat-value">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="pane-blog" class="pane hidden">
+                    <div class="pane-header">
+                        <h2>Chronicle Manager</h2>
+                        <button id="btn-new-post" class="btn-secondary">+ New Entry</button>
+                    </div>
+                    <div class="table-container">
+                        <table id="table-posts">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Status</th>
+                                    <th>Categories</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="pane-vault" class="pane hidden">
+                    <div class="pane-header">
+                        <h2>Artifact Vault</h2>
+                        <button id="btn-new-artifact" class="btn-secondary">+ Add Artifact</button>
+                    </div>
+                    <div class="table-container">
+                        <table id="table-artifacts">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Categories</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="pane-categories" class="pane hidden">
+                    <div class="pane-header">
+                        <h2>Taxonomy Manager</h2>
+                        <button id="btn-new-category" class="btn-secondary">+ New Category</button>
+                    </div>
+                    <div class="table-container">
+                        <table id="table-categories">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Slug</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="pane-stories" class="pane hidden">
+                    <div class="pane-header">
+                        <h2>Branching Story Manager</h2>
+                        <button id="btn-new-story" class="btn-secondary">+ New Story</button>
+                    </div>
+                    <div class="table-container">
+                        <table id="table-stories">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Status</th>
+                                    <th>Structure</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="pane-séance" class="pane hidden">
+                    <!-- Comment moderation is rendered here by loadSéance() -->
+                </div>
+                <div id="pane-messages" class="pane hidden">
+                    <!-- Inquiry inbox is rendered here by loadMessages() -->
+                </div>
+            </main>
+        </section>
+
+        <!-- Modal Backdrop -->
+        <div id="modal-overlay" class="modal-overlay hidden">
+            <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+                <h2 id="modal-title" class="sr-only">Grimoire dialog</h2>
+                <button id="btn-close-modal" class="btn-close" type="button" aria-label="Close dialog">&times;</button>
+                <div id="modal-body"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // The dashboard may be served by a static host rather than by the API
+        // server itself. When it is, the API origin has to be supplied by the
+        // host, e.g. by injecting a line like this at build or serve time:
+        //
+        //   window.__API_BASE__ = 'https://api.example.com/api';
+        //
+        // The example above is deliberately written WITHOUT the surrounding
+        // script tags: a literal closing script tag inside this block would
+        // terminate the script early and spill the rest of the comment into
+        // the page as visible text.
+        //
+        // This block deliberately does NOT assign a default of its own. The
+        // API base is resolved by api-config.js, which knows whether the
+        // page is a same-origin deployment, a development page on a
+        // loopback address, or a split deployment configured by the host.
+        // Assigning '/api' here would override that and send every request
+        // on a development page to the static server, which has no API.
+    </script>
+    <script src="api-config.js?v=1"></script>
+    <script src="app.js?v=5"></script>
+</body>
+</html>

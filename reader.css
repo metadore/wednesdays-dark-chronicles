@@ -1,0 +1,604 @@
+/*
+ * reader.css — the shared styles for the reader features.
+ *
+ * Three things live here:
+ *
+ *   1. The CSS custom properties the reading preferences drive.
+ *   2. The reading-settings panel (opened from the "Reading settings" button).
+ *   3. The reading-progress indicator and the bookmark button.
+ *
+ * Everything is scoped to the classes used by the reading pages, so loading
+ * this file does not change any existing page that does not use it.
+ *
+ * The gothic minimalist aesthetic is preserved: obsidian surfaces, 1px
+ * white borders, a restrained burgundy accent, serif headings, square
+ * corners, and hard shadows.
+ */
+
+:root {
+    /* Overridden by reader-data.js when a preference is stored. */
+    --reader-text-size: 18px;
+    --reader-line-height: 28px;
+    --reader-max-width: 48rem;
+    --reader-accent: #a31616;
+    --reader-accent-deep: #4b0d0d;
+    --reader-surface: #0e0e0e;
+    --reader-border: rgba(255, 255, 255, 0.15);
+    --reader-text: #e5e2e1;
+    --reader-text-muted: #7b7979;
+}
+
+/* --- Typographic preferences -------------------------------------------- */
+
+/*
+ * A specificity of 0,2,0 so these win over the single-class Tailwind text
+ * utilities without needing !important.
+ */
+body .reader-text {
+    font-size: var(--reader-text-size);
+    line-height: var(--reader-line-height);
+}
+
+body .reader-measure {
+    max-width: var(--reader-max-width);
+}
+
+/*
+ * The reading column of an article.
+ *
+ * The width is driven by the reading-width preference, so the reader can
+ * make the text column narrower or wider. The default is 48rem, which is
+ * exactly the width the page used before the preference existed, so the
+ * default appearance is unchanged.
+ *
+ * The rule is written so that it always wins over the single-class Tailwind
+ * max-width utility it replaces, without needing !important.
+ */
+body .reader-column {
+    max-width: var(--reader-max-width);
+}
+
+/*
+ * The widest setting must still leave a margin on a large screen, so the
+ * column is never allowed to run edge to edge. On a narrow screen the
+ * width is simply the available space, because the viewport is already
+ * narrower than the setting.
+ */
+@media (min-width: 768px) {
+    body .reader-column {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* --- Reduced visual intensity ------------------------------------------- */
+
+/*
+ * The reduced-intensity preference removes the grain texture and the hard
+ * shadow, and returns the crosshair cursor to the standard one. It changes
+ * the atmosphere, never the legibility of the text.
+ */
+body.reader-reduced-intensity .grain-overlay {
+    display: none;
+}
+
+body.reader-reduced-intensity {
+    cursor: auto;
+}
+
+body.reader-reduced-intensity .hard-shadow,
+body.reader-reduced-intensity .story-card:hover {
+    box-shadow: none;
+}
+
+/* --- Respect the operating system's reduced-motion preference ----------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .reader-panel,
+    .reader-button,
+    .reader-progress-fill,
+    .reader-choice {
+        transition: none !important;
+    }
+
+    .reader-panel *,
+    .reader-button * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+}
+
+/* --- Focus visibility ---------------------------------------------------- */
+
+.reader-button:focus-visible,
+.reader-settings-panel button:focus-visible,
+.reader-settings-panel input:focus-visible,
+.reader-settings-panel summary:focus-visible,
+.reader-progress-reset:focus-visible,
+.reader-bookmark-toggle:focus-visible,
+.reader-data-panel button:focus-visible,
+.reader-data-panel a:focus-visible,
+.reader-card-remove:focus-visible,
+.reader-card-link:focus-visible {
+    outline: 2px solid var(--reader-accent);
+    outline-offset: 3px;
+}
+
+/* A fallback for browsers without :focus-visible support. */
+.reader-button:focus,
+.reader-settings-panel button:focus,
+.reader-settings-panel input:focus,
+.reader-progress-reset:focus,
+.reader-bookmark-toggle:focus,
+.reader-data-panel button:focus,
+.reader-card-remove:focus,
+.reader-card-link:focus {
+    outline: 2px solid var(--reader-accent);
+    outline-offset: 3px;
+}
+
+/* --- The reading-settings button ----------------------------------------- */
+
+.reader-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.85rem;
+    background: transparent;
+    border: 1px solid var(--reader-border);
+    color: var(--reader-text);
+    font-family: 'Geist Mono', 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+}
+
+.reader-button:hover {
+    border-color: var(--reader-accent);
+    color: #fff;
+    background: rgba(163, 22, 22, 0.12);
+}
+
+.reader-button[aria-pressed='true'],
+.reader-button[aria-expanded='true'] {
+    border-color: var(--reader-accent);
+    color: #fff;
+}
+
+/* --- The reading-settings panel ------------------------------------------ */
+
+.reader-settings-panel {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.5rem);
+    z-index: 60;
+    width: min(20rem, calc(100vw - 2rem));
+    padding: 1.25rem;
+    background: #141414;
+    border: 1px solid var(--reader-border);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8);
+}
+
+.reader-settings-panel[hidden] {
+    display: none;
+}
+
+.reader-settings-group {
+    margin: 0 0 1.25rem;
+    padding: 0;
+    border: 0;
+}
+
+.reader-settings-group:last-of-type {
+    margin-bottom: 0.75rem;
+}
+
+.reader-settings-legend {
+    padding: 0;
+    margin-bottom: 0.5rem;
+    color: var(--reader-text-muted);
+    font-family: 'Geist Mono', 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.reader-settings-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.reader-option {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.7rem;
+    border: 1px solid var(--reader-border);
+    background: transparent;
+    color: var(--reader-text-muted);
+    font-family: 'Geist Mono', 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+/*
+ * The radio itself stays in the accessibility tree but is visually replaced
+ * by the label, so the control is reachable by keyboard and announced
+ * correctly while still looking like a button.
+ */
+.reader-option input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+}
+
+.reader-option:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: var(--reader-text);
+}
+
+.reader-option:has(input:checked) {
+    border-color: var(--reader-accent);
+    color: #fff;
+    background: rgba(163, 22, 22, 0.15);
+}
+
+/*
+ * The radio itself is visually hidden, so the focus ring is drawn on the
+ * label. Both :focus-visible and :focus are matched, so the ring appears
+ * however the control was focused — including when focus was moved
+ * programmatically, where the :focus-visible heuristic can decline to
+ * apply.
+ */
+.reader-option:has(input:focus-visible),
+.reader-option:has(input:focus) {
+    outline: 2px solid var(--reader-accent);
+    outline-offset: 3px;
+}
+
+.reader-option-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    cursor: pointer;
+    color: var(--reader-text);
+    font-family: 'Geist Mono', 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.reader-option-check input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--reader-accent);
+    cursor: pointer;
+}
+
+.reader-settings-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--reader-border);
+}
+
+.reader-settings-note {
+    color: var(--reader-text-muted);
+    font-size: 11px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* --- Reading progress ---------------------------------------------------- */
+
+.reader-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.08);
+    z-index: 1200;
+    pointer-events: none;
+}
+
+.reader-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--reader-accent);
+    transition: width 0.25s linear;
+}
+
+.reader-progress-status {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0.7rem 0.9rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--reader-border);
+    background: rgba(20, 20, 20, 0.6);
+    color: var(--reader-text-muted);
+    font-family: 'Geist Mono', 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.reader-progress-label {
+    color: var(--reader-text);
+}
+
+.reader-progress-reset {
+    margin-left: auto;
+    padding: 0.3rem 0.65rem;
+    background: transparent;
+    border: 1px solid var(--reader-border);
+    color: var(--reader-text-muted);
+    font-family: 'Geist Mono', 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.reader-progress-reset:hover {
+    border-color: var(--reader-accent);
+    color: #fff;
+}
+
+.reader-progress-reset[hidden] {
+    display: none;
+}
+
+/* --- The bookmark button ------------------------------------------------- */
+
+.reader-bookmark-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.9rem;
+    background: transparent;
+    border: 1px solid var(--reader-border);
+    color: var(--reader-text-muted);
+    font-family: 'Geist Mono', 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+}
+
+.reader-bookmark-toggle:hover {
+    border-color: var(--reader-accent);
+    color: #fff;
+}
+
+.reader-bookmark-toggle[aria-pressed='true'] {
+    border-color: var(--reader-accent);
+    color: #fff;
+    background: rgba(163, 22, 22, 0.15);
+}
+
+.reader-bookmark-toggle .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.reader-bookmark-toggle[aria-pressed='true'] .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.reader-bookmark-note {
+    margin-top: 0.75rem;
+    color: var(--reader-text-muted);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+/* --- The reader data panel ----------------------------------------------- */
+
+.reader-data-panel {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    border: 1px solid var(--reader-border);
+    background: var(--reader-surface);
+}
+
+.reader-data-panel h2 {
+    margin: 0 0 0.5rem;
+    font-family: 'Libre Caslon Text', 'Cinzel', serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.reader-data-panel p {
+    margin: 0 0 1rem;
+    color: var(--reader-text-muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.reader-data-counts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--reader-border);
+}
+
+.reader-data-count {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+/*
+ * The value and the label are separate elements, so the accessible name of
+ * a count needs an explicit space between them.
+ */
+.reader-data-count-value::after {
+    content: ' ';
+}
+
+.reader-data-count-value {
+    font-family: 'Libre Caslon Text', 'Cinzel', serif;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.reader-data-count-label {
+    color: var(--reader-text-muted);
+    font-family: 'Geist Mono', 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.reader-data-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.reader-data-action {
+    padding: 0.5rem 0.9rem;
+    background: transparent;
+    border: 1px solid var(--reader-border);
+    color: var(--reader-text);
+    font-family: 'Geist Mono', 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.reader-data-action:hover {
+    border-color: var(--reader-accent);
+    color: #fff;
+}
+
+.reader-data-action.is-danger:hover {
+    border-color: #ff4444;
+    color: #ff8080;
+}
+
+.reader-data-status {
+    margin-top: 0.9rem;
+    min-height: 1.2rem;
+    color: var(--reader-text-muted);
+    font-family: 'Geist Mono', 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+}
+
+.reader-data-status.is-error {
+    color: #ff8080;
+}
+
+/* --- Saved-entry cards --------------------------------------------------- */
+
+.reader-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.1rem 1.25rem;
+    margin-bottom: 0.9rem;
+    border: 1px solid var(--reader-border);
+    background: var(--reader-surface);
+    transition: border-color 0.2s;
+}
+
+.reader-card:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.reader-card-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.reader-card-title {
+    margin: 0 0 0.4rem;
+    font-family: 'Libre Caslon Text', 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.reader-card-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.reader-card-title a:hover {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.reader-card-meta {
+    color: var(--reader-text-muted);
+    font-family: 'Geist Mono', 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+}
+
+.reader-card-excerpt {
+    margin: 0.5rem 0 0;
+    color: var(--reader-text-muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.reader-card-unavailable {
+    border-color: rgba(163, 22, 22, 0.5);
+}
+
+.reader-card-remove {
+    padding: 0.35rem 0.7rem;
+    background: transparent;
+    border: 1px solid var(--reader-border);
+    color: var(--reader-text-muted);
+    font-family: 'Geist Mono', 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.reader-card-remove:hover {
+    border-color: #ff4444;
+    color: #ff8080;
+}
+
+.reader-progress-pill {
+    display: inline-block;
+    margin-left: 0.6rem;
+    padding: 0.15rem 0.45rem;
+    border: 1px solid var(--reader-border);
+    color: var(--reader-text-muted);
+    font-family: 'Geist Mono', 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    vertical-align: middle;
+}

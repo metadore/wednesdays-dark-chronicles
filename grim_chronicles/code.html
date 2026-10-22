@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Grim Chronicles | The Void</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/reader.css?v=1"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#140029",
+                    "surface-container-highest": "#353535",
+                    "on-secondary-fixed-variant": "#454747",
+                    "on-primary-container": "#7b7979",
+                    "background": "#131313",
+                    "on-primary-fixed-variant": "#474646",
+                    "inverse-primary": "#5f5e5e",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-primary-fixed": "#1c1b1b",
+                    "surface": "#131313",
+                    "on-error-container": "#ffdad6",
+                    "on-surface-variant": "#c4c7c7",
+                    "primary-container": "#0a0a0a",
+                    "surface-container": "#20201f",
+                    "tertiary-fixed-dim": "#ddb7ff",
+                    "secondary-fixed": "#e2e2e2",
+                    "primary-fixed-dim": "#c9c6c5",
+                    "surface-variant": "#353535",
+                    "primary-fixed": "#e5e2e1",
+                    "on-background": "#e5e2e1",
+                    "tertiary-fixed": "#f0dbff",
+                    "surface-tint": "#c9c6c5",
+                    "secondary": "#c6c6c7",
+                    "outline": "#8e9192",
+                    "surface-bright": "#393939",
+                    "inverse-surface": "#e5e2e1",
+                    "on-secondary": "#2f3131",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "on-secondary-container": "#b4b5b5",
+                    "tertiary": "#ddb7ff",
+                    "on-tertiary-fixed-variant": "#622599",
+                    "on-tertiary": "#4a0080",
+                    "on-tertiary-fixed": "#2c0050",
+                    "on-error": "#690005",
+                    "on-tertiary-container": "#985ed0",
+                    "secondary-container": "#454747",
+                    "on-primary": "#313030",
+                    "error-container": "#93000a",
+                    "primary": "#c9c6c5",
+                    "surface-container-low": "#1c1b1b",
+                    "surface-dim": "#131313",
+                    "surface-container-high": "#2a2a2a",
+                    "on-surface": "#e5e2e1",
+                    "inverse-on-surface": "#313030",
+                    "outline-variant": "#444748",
+                    "error": "#ffb4ab"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-gap": "120px",
+                    "container-max": "1120px",
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Libre Caslon Text"],
+                    "headline-md": ["Libre Caslon Text"],
+                    "headline-lg-mobile": ["Libre Caslon Text"],
+                    "label-sm": ["Geist"],
+                    "display-lg": ["Libre Caslon Text"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "38px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                    "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "300"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0A0A0A;
+            color: #e5e2e1;
+            cursor: crosshair;
+        }
+        .crypt-surface {
+            background-color: #1A1A1A;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .artifact-overlay {
+            background-color: #2E2E2E;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .hard-shadow {
+            box-shadow: 8px 8px 0px 0px #000000;
+        }
+        .grain-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 999;
+        }
+        input:focus {
+            outline: none;
+            border-bottom: 2px solid #c9c6c5 !important;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md selection:bg-primary selection:text-black">
+<div class="grain-overlay"></div>
+<!-- Navigation Drawer (Desktop) -->
+<aside class="hidden md:flex h-full w-80 fixed left-0 top-0 bg-surface-container-lowest border-r border-white/20 shadow-[8px_0_0_0_#000000] flex-col p-gutter space-y-4 z-40">
+<div class="mb-12">
+<div class="font-headline-md text-headline-md text-primary tracking-tighter">CHRONICLES</div>
+</div>
+<nav class="flex flex-col space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-white/5 transition-all group" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-body-md">The Void</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 bg-white text-black font-bold transition-all group" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-body-md">Grim Chronicles</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-white/5 transition-all group" href="#">
+<span class="material-symbols-outlined">auto_stories</span>
+<span class="font-body-md">The Vault</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-white/5 transition-all group" href="/branching_stories/code.html">
+<span class="material-symbols-outlined">fork_right</span>
+<span class="font-body-md">Branching Stories</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-white/5 transition-all group" href="/bookmarks/code.html">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="font-body-md">Bookmarks</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-white/5 transition-all group" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-body-md">Inquiries</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-white/5 transition-all group" href="#">
+<span class="material-symbols-outlined">visibility_off</span>
+<span class="font-body-md">Solitude</span>
+</a>
+</nav>
+</aside>
+<!-- Top AppBar (Mobile) -->
+<header class="md:hidden w-full top-0 sticky z-50 bg-background border-b border-white/10 flex justify-between items-center px-margin-mobile h-16">
+<span class="material-symbols-outlined text-primary">menu</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile tracking-tighter text-on-background">THE VOID</h2>
+<span class="material-symbols-outlined text-primary">search</span>
+</header>
+<!-- Main Content Canvas -->
+<main class="md:ml-80 min-h-screen">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter pt-12 pb-section-gap">
+<!-- Hero / Header Section -->
+<section class="mb-section-gap text-center md:text-left">
+<h1 class="font-display-lg text-display-lg mb-6 tracking-tight">Grim Chronicles</h1>
+<p class="font-body-lg text-body-lg text-on-primary-container max-w-2xl mb-12">
+                    A record of things better left forgotten. Explorations into the dark corners of the human psyche and the beauty found in decay.
+                </p>
+<!-- Search Component -->
+<div class="flex flex-wrap items-end gap-4">
+<div class="relative max-w-xl group flex-1 min-w-0">
+<span class="absolute left-0 bottom-3 material-symbols-outlined text-on-primary-container group-focus-within:text-primary transition-colors">search</span>
+<label for="search-input" class="sr-only font-label-sm uppercase tracking-widest text-on-primary-container/60">Search the chronicles</label>
+<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-white/20 py-3 pl-10 text-primary font-label-sm uppercase tracking-widest placeholder:text-on-primary-container/50" id="search-input" placeholder="Search the Abyss" type="text"/>
+</div>
+<div id="reader-settings-host" class="relative shrink-0">
+<button id="reader-settings-toggle" class="reader-button" type="button" aria-haspopup="dialog">
+<span class="material-symbols-outlined text-base" data-icon="tune">tune</span>
+<span class="hidden sm:inline">Reading settings</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Category Filters -->
+<nav id="category-filters" class="flex flex-wrap gap-8 mb-12 border-b border-white/5 pb-8" aria-label="Filter chronicles by category"></nav>
+<!-- Blog Feed Grid -->
+<section id="blog-feed" class="grid grid-cols-1 md:grid-cols-2 gap-y-20 gap-x-12" aria-live="polite"><div id="blog-loading" class="col-span-full text-center py-20 text-on-primary-container font-label-sm uppercase tracking-widest animate-pulse">Consulting the Archive...</div></section>
+<!-- Pagination/Divider -->
+<div id="blog-pagination" class="flex items-center justify-center gap-8 mt-section-gap py-8 border-t border-white/5">
+<button id="page-prev" class="material-symbols-outlined text-primary hover:scale-125 transition-transform disabled:opacity-20 disabled:cursor-not-allowed disabled:hover:scale-100" aria-label="Previous page">arrow_back_ios</button>
+<span id="page-label" class="font-label-sm text-primary">PAGE I OF I</span>
+<button id="page-next" class="material-symbols-outlined text-primary hover:scale-125 transition-transform disabled:opacity-20 disabled:cursor-not-allowed disabled:hover:scale-100" aria-label="Next page">arrow_forward_ios</button>
+</div>
+</div>
+<!-- Footer -->
+<footer class="w-full py-section-gap border-t border-white/5 bg-surface-container-lowest flex flex-col items-center gap-4 px-margin-mobile text-center">
+<h2 class="font-headline-md text-headline-md tracking-widest text-primary">THE VOID</h2>
+<div class="flex flex-wrap justify-center gap-x-8 gap-y-2">
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-primary-container hover:text-white underline transition-opacity duration-500" href="#">The Abyss</a>
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-primary-container hover:text-white underline transition-opacity duration-500" href="#">Terms of Grief</a>
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-primary-container hover:text-white underline transition-opacity duration-500" href="#">Privacy Policy</a>
+</div>
+<p class="font-label-sm text-label-sm text-on-primary-container mt-4 opacity-50 uppercase tracking-widest">© MMXIV MORTICIA'S KIN. ALL RIGHTS RESERVED.</p>
+</footer>
+</main>
+<!-- Bottom Nav Bar (Mobile Only) -->
+<nav class="flex md:hidden justify-around items-center h-16 z-50 bg-background fixed bottom-0 w-full border-t border-white/10">
+<button class="text-on-primary-container opacity-50 hover:opacity-100 transition-transform duration-200">
+<span class="material-symbols-outlined">home</span>
+</button>
+<button class="text-primary scale-110 transition-transform duration-200">
+<span class="material-symbols-outlined">history_edu</span>
+</button>
+<button class="text-on-primary-container opacity-50 hover:opacity-100 transition-transform duration-200">
+<span class="material-symbols-outlined">grid_view</span>
+</button>
+<button class="text-on-primary-container opacity-50 hover:opacity-100 transition-transform duration-200">
+<span class="material-symbols-outlined">send</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction for a subtle crosshair movement effect
+        document.addEventListener('mousemove', (e) => {
+            const grain = document.querySelector('.grain-overlay');
+            const x = (e.clientX / window.innerWidth) * 10;
+            const y = (e.clientY / window.innerHeight) * 10;
+            grain.style.transform = `translate(${x}px, ${y}px)`;
+        });
+
+        // Search input subtle focus effect
+        const searchInput = document.querySelector('input');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('artifact-overlay');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('artifact-overlay');
+        });
+    </script>
+
+<script src="/reader-config.js?v=1"></script>
+<script src="/reader-data.js?v=1"></script>
+<script src="/reader-ui.js?v=1"></script>
+<script>
+    const API_BASE = (window.ReaderConfig && window.ReaderConfig.apiBase)
+        || window.__API_BASE__
+        || '/api';
+    let currentCategory = null;
+    let currentQuery = '';
+    let currentPage = 1;
+    let currentTotalPages = 1;
+    const ROMAN = ['0','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX'];
+    const toRoman = (n) => ROMAN[n] || String(n);
+
+    /**
+     * The API returns an envelope: { data: [...], meta: { total, page, limit, totalPages } }.
+     * Older revisions of this page expected a bare array, which made the renderer
+     * throw and show "Error consulting the archive". The envelope is unwrapped
+     * here, in one place, so every consumer sees a plain array.
+     */
+    const unwrap = (payload) => {
+        if (Array.isArray(payload)) return { items: payload, meta: null };
+        if (payload && Array.isArray(payload.data)) {
+            return { items: payload.data, meta: payload.meta || null };
+        }
+        return { items: [], meta: null };
+    };
+
+    /** Escape a value for safe interpolation into HTML text/attribute context. */
+    const escapeHtml = (value) => {
+        if (value === null || value === undefined) return '';
+        return String(value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    };
+
+    /**
+     * Only allow image sources we are willing to load. Anything else falls
+     * back to the placeholder, so a database value can never inject a
+     * `javascript:` URL into an <img src>.
+     */
+    const safeImageUrl = (url) => {
+        if (typeof url !== 'string' || !url.trim()) return null;
+        const trimmed = url.trim();
+        if (/^(https?:)?\/\//i.test(trimmed) || /^data:image\//i.test(trimmed)) {
+            return trimmed.replace(/"/g, '%22');
+        }
+        return null;
+    };
+
+    const formatDate = (value) => {
+        if (!value) return 'Unknown Date';
+        const d = new Date(value);
+        if (Number.isNaN(d.getTime())) return 'Unknown Date';
+        return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    };
+
+    /**
+     * The article page lives at the site root, while this page sits in
+     * /grim_chronicles/. A relative "post.html?slug=..." therefore resolved to
+     * /grim_chronicles/post.html and 404'd, so the path is built from the
+     * site root instead.
+     */
+    const POST_PAGE = '/post.html';
+    const postUrl = (slug) => `${POST_PAGE}?slug=${encodeURIComponent(slug)}`;
+
+    async function fetchCategories() {
+        const container = document.getElementById('category-filters');
+        if (!container) return;
+
+        try {
+            const res = await fetch(`${API_BASE}/categories`);
+            if (!res.ok) throw new Error('Category load failed');
+            const cats = await res.json();
+
+            container.innerHTML = '';
+
+            const all = document.createElement('button');
+            all.className = 'px-4 py-1 border border-white/20 text-label-sm uppercase tracking-widest hover:bg-white hover:text-black transition-all'
+                + (currentCategory === null ? ' bg-white text-black' : '');
+            all.textContent = 'All';
+            all.setAttribute('aria-pressed', currentCategory === null ? 'true' : 'false');
+            all.onclick = () => filterByCategory(null);
+            container.appendChild(all);
+
+            cats.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'px-4 py-1 border border-white/20 text-label-sm uppercase tracking-widest hover:bg-white hover:text-black transition-all'
+                    + (currentCategory === cat.slug ? ' bg-white text-black' : '');
+                btn.textContent = cat.name;
+                btn.setAttribute('aria-pressed', currentCategory === cat.slug ? 'true' : 'false');
+                btn.onclick = () => filterByCategory(cat.slug);
+                container.appendChild(btn);
+            });
+        } catch (e) {
+            console.error('Category load failed', e);
+            container.innerHTML = '';
+        }
+    }
+
+    function updatePagination(meta) {
+        const label = document.getElementById('page-label');
+        const prev = document.getElementById('page-prev');
+        const next = document.getElementById('page-next');
+        if (!label || !prev || !next) return;
+
+        const totalPages = (meta && meta.totalPages) ? meta.totalPages : 1;
+        currentTotalPages = totalPages;
+        const page = (meta && meta.page) ? meta.page : currentPage;
+
+        label.textContent = `PAGE ${toRoman(page)} OF ${toRoman(totalPages)}`;
+        prev.disabled = page <= 1;
+        next.disabled = page >= totalPages;
+        prev.setAttribute('aria-disabled', String(page <= 1));
+        next.setAttribute('aria-disabled', String(page >= totalPages));
+    }
+
+    async function fetchPosts() {
+        const feed = document.getElementById('blog-feed');
+        if (!feed) return;
+
+        feed.innerHTML = '<div id="blog-loading" class="col-span-full text-center py-20 text-on-primary-container font-label-sm uppercase tracking-widest animate-pulse">Consulting the Archive...</div>';
+
+        try {
+            const params = new URLSearchParams({
+                page: currentPage,
+                limit: 10,
+                ...(currentCategory && { category: currentCategory }),
+                ...(currentQuery && { q: currentQuery })
+            });
+
+            const res = await fetch(`${API_BASE}/posts?${params}`);
+            if (!res.ok) throw new Error('Archive inaccessible');
+
+            const { items: posts, meta } = unwrap(await res.json());
+            updatePagination(meta);
+
+            if (!Array.isArray(posts) || posts.length === 0) {
+                feed.innerHTML = '<div class="col-span-full text-center py-20 text-on-primary-container font-label-sm uppercase tracking-widest">The void is empty. No chronicles found.</div>';
+                return;
+            }
+
+            let html = '';
+            posts.forEach((post, index) => {
+                const dateStr = formatDate(post.publishedAt);
+                const title = escapeHtml(post.title);
+                const slug = escapeHtml(post.slug);
+                const href = postUrl(post.slug);
+                const excerpt = escapeHtml(post.excerpt || '');
+                const cover = safeImageUrl(post.coverImageUrl);
+                const featureImage = cover
+                    ? `<img class="w-full h-full object-cover grayscale contrast-125 opacity-80 group-hover:scale-105 transition-transform duration-700" src="${cover}" alt="${title}"/>`
+                    : '<div class="w-full h-full bg-surface-container-lowest flex items-center justify-center"><span class="material-symbols-outlined text-5xl text-on-primary-container/30">image_not_supported</span></div>';
+                const cardImage = cover
+                    ? `<img class="w-full h-full object-cover grayscale opacity-70 group-hover:opacity-100 transition-opacity duration-500" src="${cover}" alt="${title}"/>`
+                    : '<div class="w-full h-full bg-surface-container-lowest flex items-center justify-center"><span class="material-symbols-outlined text-4xl text-on-primary-container/30">image_not_supported</span></div>';
+
+                if (index === 0) {
+                    html += `
+                    <article class="md:col-span-2 group">
+                        <div class="relative border border-white/10 p-4 mb-8">
+                            <div class="aspect-[21/9] overflow-hidden bg-surface-container-lowest">
+                                ${featureImage}
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row md:items-baseline justify-between gap-4">
+                            <div>
+                                <span class="font-label-sm text-label-sm text-primary mb-2 block uppercase">${dateStr}</span>
+                                <h2 class="font-headline-lg text-headline-lg italic hover:text-primary transition-colors cursor-pointer" onclick="window.location.href='${href}'">${title}</h2>
+                            </div>
+                            <div class="flex items-center gap-3 self-start">
+                                <button class="reader-bookmark-toggle" type="button" data-bookmark-slug="${slug}" aria-pressed="false" aria-label="Bookmark this entry">
+                                    <span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+                                    <span class="reader-bookmark-text">Bookmark</span>
+                                </button>
+                                <a class="px-6 py-2 border border-white text-label-sm uppercase tracking-widest hover:bg-white hover:text-black transition-all" href="${href}">Read Entry</a>
+                            </div>
+                        </div>
+                    </article>`;
+                } else {
+                    html += `
+                    <article class="group">
+                        <div class="relative border border-white/10 p-3 mb-6">
+                            <div class="aspect-[4/5] overflow-hidden bg-surface-container-lowest">
+                                ${cardImage}
+                            </div>
+                        </div>
+                        <span class="font-label-sm text-label-sm text-on-primary-container mb-2 block uppercase">${dateStr}</span>
+                        <h3 class="font-headline-md text-headline-md mb-4 cursor-pointer hover:text-primary transition-colors" onclick="window.location.href='${href}'">${title}</h3>
+                        <p class="text-on-surface-variant line-clamp-3 mb-6 reader-text">${excerpt}</p>
+                        <div class="flex items-center gap-3 mb-4">
+                            <button class="reader-bookmark-toggle" type="button" data-bookmark-slug="${slug}" aria-pressed="false" aria-label="Bookmark this entry">
+                                <span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+                                <span class="reader-bookmark-text">Bookmark</span>
+                            </button>
+                        </div>
+                        <div class="h-px w-12 bg-primary group-hover:w-full transition-all duration-500"></div>
+                    </article>`;
+                }
+            });
+            feed.innerHTML = html;
+            wireBookmarkButtons(feed);
+        } catch (e) {
+            console.error('Post load failed', e);
+            feed.innerHTML = '<div class="col-span-full text-center py-20 text-on-primary-container font-label-sm uppercase tracking-widest">Error consulting the archive. Please try again later.</div>';
+        }
+    }
+
+    /**
+     * Wire the bookmark buttons on the rendered cards.
+     *
+     * The slug comes from the data attribute of a button that was created
+     * here, so it is a value this page already knows. The state is read
+     * from the browser's own storage, and a failure to write is reported
+     * without removing anything.
+     */
+    function wireBookmarkButtons(container) {
+        if (!container || typeof ReaderData === 'undefined') return;
+
+        container.querySelectorAll('button[data-bookmark-slug]').forEach((button) => {
+            const slug = button.getAttribute('data-bookmark-slug');
+
+            const render = () => {
+                const saved = ReaderData.isBookmarked(slug);
+                button.setAttribute('aria-pressed', saved ? 'true' : 'false');
+                button.setAttribute(
+                    'aria-label',
+                    saved ? 'Remove this entry from your bookmarks' : 'Bookmark this entry'
+                );
+                const text = button.querySelector('.reader-bookmark-text');
+                if (text) text.textContent = saved ? 'Bookmarked' : 'Bookmark';
+            };
+
+            render();
+
+            button.onclick = (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+
+                if (ReaderData.isBookmarked(slug)) {
+                    ReaderData.removeBookmark(slug);
+                    render();
+                    return;
+                }
+
+                const result = ReaderData.addBookmark(slug);
+                if (result.ok) {
+                    render();
+                } else {
+                    // A duplicate is not an error worth shouting about; a
+                    // genuine failure is reported in the console.
+                    if (!result.duplicate) console.error(result.error);
+                }
+            };
+        });
+    }
+
+    function filterByCategory(slug) {
+        currentCategory = slug;
+        currentPage = 1;
+        fetchCategories();
+        fetchPosts();
+    }
+
+    function goToPage(page) {
+        if (page < 1 || page > currentTotalPages) return;
+        currentPage = page;
+        fetchPosts();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    let searchTimeout;
+    document.getElementById('search-input').oninput = (e) => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            currentQuery = e.target.value.trim();
+            currentPage = 1;
+            fetchPosts();
+        }, 400);
+    };
+
+    const prevBtn = document.getElementById('page-prev');
+    const nextBtn = document.getElementById('page-next');
+    if (prevBtn) prevBtn.onclick = () => goToPage(currentPage - 1);
+    if (nextBtn) nextBtn.onclick = () => goToPage(currentPage + 1);
+
+    // Apply the stored reading preferences before the cards are rendered,
+    // so the page is laid out in the reader's chosen measure from the start.
+    ReaderData.applyPreferences(document);
+
+    // The reading settings panel, so the preferences are reachable here too.
+    ReaderUI.initSettingsPanel({
+        toggleButton: document.getElementById('reader-settings-toggle'),
+        host: document.getElementById('reader-settings-host'),
+    });
+
+    window.onload = () => {
+        fetchCategories();
+        fetchPosts();
+    };
+</script>
+</body></html>
