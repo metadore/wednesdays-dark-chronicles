@@ -4,6 +4,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import { randomBytes } from 'crypto';
+import { readFile } from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
@@ -30,7 +32,40 @@ dotenv.config({ path: isTestEnv() ? envTestPath : undefined });
 const app = express();
 const siteRoot = path.resolve(fileURLToPath(new URL('../../', import.meta.url)));
 
-app.use(helmet());
+app.use((req, res, next) => {
+  res.locals.cspNonce = randomBytes(16).toString('base64');
+  next();
+});
+
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      scriptSrc: [
+        "'self'",
+        (req, res) => `'nonce-${res.locals.cspNonce}'`,
+        'https://cdn.tailwindcss.com',
+      ],
+      scriptSrcAttr: [
+        "'unsafe-hashes'",
+        "'sha256-2r+bErCDCyg5KnmYpxSw4m8UPgtsLYHt6dH+fNGZyPc='",
+      ],
+      styleSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        'https://fonts.googleapis.com',
+        'https://fonts.cdnfonts.com',
+      ],
+      fontSrc: [
+        "'self'",
+        'https://fonts.gstatic.com',
+        'https://fonts.cdnfonts.com',
+        'data:',
+      ],
+      imgSrc: ["'self'", 'data:', 'https:'],
+      connectSrc: ["'self'"],
+    },
+  },
+}));
 
 /**
  * CORS configuration.
@@ -226,8 +261,24 @@ app.get('/api/health', async (req, res) => {
   });
 });
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(siteRoot, 'home_the_void', 'code.html'));
+const serveHtmlFile = async (filePath, res, next) => {
+  try {
+    const html = await readFile(filePath, 'utf8');
+    const nonce = res.locals.cspNonce;
+    const securedHtml = html.replace(
+      /<script\b(?![^>]*\bnonce=)([^>]*)>/gi,
+      `<script nonce="${nonce}"$1>`
+    );
+    res.set('Cache-Control', 'no-store');
+    res.type('html').send(securedHtml);
+  } catch (error) {
+    if (error.code === 'ENOENT') return next();
+    return next(error);
+  }
+};
+
+app.get('/', (req, res, next) => {
+  serveHtmlFile(path.join(siteRoot, 'home_the_void', 'code.html'), res, next);
 });
 
 for (const directory of [
@@ -241,9 +292,21 @@ for (const directory of [
   'the_vault',
   'the_vault_artifact_modal_view',
 ]) {
+  const directoryRoot = path.resolve(siteRoot, directory);
+  app.use(`/${directory}`, (req, res, next) => {
+    if (!req.path.toLowerCase().endsWith('.html')) return next();
+
+    const filePath = path.resolve(directoryRoot, `.${req.path}`);
+    if (!filePath.startsWith(`${directoryRoot}${path.sep}`)) {
+      return res.sendStatus(404);
+    }
+
+    return serveHtmlFile(filePath, res, next);
+  });
+
   app.use(
     `/${directory}`,
-    express.static(path.join(siteRoot, directory), {
+    express.static(directoryRoot, {
       dotfiles: 'deny',
       index: false,
     })
@@ -258,7 +321,10 @@ for (const filename of [
   'reader-ui.js',
   'reader.css',
 ]) {
-  app.get(`/${filename}`, (req, res) => {
+  app.get(`/${filename}`, (req, res, next) => {
+    if (filename.endsWith('.html')) {
+      return serveHtmlFile(path.join(siteRoot, filename), res, next);
+    }
     res.sendFile(path.join(siteRoot, filename));
   });
 }

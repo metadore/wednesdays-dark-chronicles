@@ -393,7 +393,7 @@
                         <span class="text-[10px] opacity-40">${new Date(comment.createdAt).toLocaleDateString()}</span>
                     </div>
                     <p class="text-on-surface-variant italic mb-2">${escapeHtml(comment.content)}</p>
-                    <button onclick="setupReply('${comment.id}')" class="text-[10px] uppercase tracking-tighter text-on-primary-container hover:text-primary transition-colors">Reply</button>
+                    <button data-reply-comment="${comment.id}" class="text-[10px] uppercase tracking-tighter text-on-primary-container hover:text-primary transition-colors">Reply</button>
                     <div class="replies-container">${comment.replies ? comment.replies.map(r => renderComment(r, depth + 1)).join('') : ''}</div>
                 </div>
                 `;
@@ -410,6 +410,11 @@
         document.getElementById('form-comment').scrollIntoView({ behavior: 'smooth' });
         document.getElementById('form-comment').querySelector('input[name="author"]').focus();
     }
+
+    document.getElementById('comments-list').addEventListener('click', (event) => {
+        const button = event.target.closest('[data-reply-comment]');
+        if (button) setupReply(button.dataset.replyComment);
+    });
 
     document.getElementById('form-comment').onsubmit = async (e) => {
         e.preventDefault();

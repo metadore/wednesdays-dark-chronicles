@@ -296,6 +296,12 @@
             // but we'll stick to vanilla JS for simple atmospheric shifts
         });
 
+        document.addEventListener('click', (event) => {
+            if (event.target.closest('[data-close-artifact-modal]')) {
+                document.getElementById('artifact-modal').style.display = 'none';
+            }
+        });
+
         // Hover scale effect for cards as requested
         const tiles = document.querySelectorAll('article');
         tiles.forEach(tile => {

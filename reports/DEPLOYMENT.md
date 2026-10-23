@@ -111,6 +111,11 @@ The Blueprint selects Render's free web-service plan; free instances may
 sleep when idle and have a cold start on the next request. Upgrading the
 service can incur charges.
 
+The backend applies a nonce-based Content Security Policy to served HTML.
+This permits the existing inline page scripts without allowing arbitrary
+inline scripts, and explicitly allows the Tailwind CDN and Google font
+resources the pages use.
+
 > `SESSION_SECRET` was in earlier revisions of this guide but is **not used
 > anywhere in the code**: the CSRF session identifier is a random cookie
 > value, not a signed one. It has been removed from `.env.example`. Setting

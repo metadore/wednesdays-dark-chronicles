@@ -434,7 +434,7 @@
                         <div class="flex flex-col md:flex-row md:items-baseline justify-between gap-4">
                             <div>
                                 <span class="font-label-sm text-label-sm text-primary mb-2 block uppercase">${dateStr}</span>
-                                <h2 class="font-headline-lg text-headline-lg italic hover:text-primary transition-colors cursor-pointer" onclick="window.location.href='${href}'">${title}</h2>
+                                <a class="font-headline-lg text-headline-lg italic hover:text-primary transition-colors" href="${href}">${title}</a>
                             </div>
                             <div class="flex items-center gap-3 self-start">
                                 <button class="reader-bookmark-toggle" type="button" data-bookmark-slug="${slug}" aria-pressed="false" aria-label="Bookmark this entry">
@@ -454,7 +454,7 @@
                             </div>
                         </div>
                         <span class="font-label-sm text-label-sm text-on-primary-container mb-2 block uppercase">${dateStr}</span>
-                        <h3 class="font-headline-md text-headline-md mb-4 cursor-pointer hover:text-primary transition-colors" onclick="window.location.href='${href}'">${title}</h3>
+                        <a class="font-headline-md text-headline-md mb-4 hover:text-primary transition-colors" href="${href}">${title}</a>
                         <p class="text-on-surface-variant line-clamp-3 mb-6 reader-text">${excerpt}</p>
                         <div class="flex items-center gap-3 mb-4">
                             <button class="reader-bookmark-toggle" type="button" data-bookmark-slug="${slug}" aria-pressed="false" aria-label="Bookmark this entry">
