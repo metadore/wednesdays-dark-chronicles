@@ -281,6 +281,12 @@ app.get('/', (req, res, next) => {
   serveHtmlFile(path.join(siteRoot, 'home_the_void', 'code.html'), res, next);
 });
 
+const adminRoot = path.join(siteRoot, 'public', 'admin');
+app.get(['/admin', '/admin/'], (req, res, next) => {
+  serveHtmlFile(path.join(adminRoot, 'index.html'), res, next);
+});
+app.use('/admin', express.static(adminRoot, { dotfiles: 'deny', index: false }));
+
 for (const directory of [
   'bookmarks',
   'branching_stories',

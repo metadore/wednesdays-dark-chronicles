@@ -28,6 +28,24 @@ describe('Single-origin deployment site', () => {
     expect(response.text).to.include("var SAME_ORIGIN_API = '/api'");
   });
 
+  it('serves the admin dashboard and its relative assets at /admin/', async () => {
+    const [page, config, script, stylesheet] = await Promise.all([
+      request(app).get('/admin/'),
+      request(app).get('/admin/api-config.js'),
+      request(app).get('/admin/app.js'),
+      request(app).get('/admin/style.css'),
+    ]);
+
+    expect(page.status).to.equal(200);
+    expect(page.headers['content-type']).to.match(/text\/html/);
+    expect(page.text).to.include('The Grimoire');
+    expect(page.text).to.match(/<script nonce="[^"]+"[^>]*src="api-config\.js/);
+    expect(config.status).to.equal(200);
+    expect(config.headers['content-type']).to.match(/javascript/);
+    expect(script.status).to.equal(200);
+    expect(stylesheet.status).to.equal(200);
+  });
+
   it('adds a fresh CSP nonce to nested HTML pages', async () => {
     const [first, second] = await Promise.all([
       request(app).get('/grim_chronicles/code.html'),
